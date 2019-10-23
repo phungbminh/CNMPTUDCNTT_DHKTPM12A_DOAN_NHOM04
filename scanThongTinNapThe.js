@@ -16,7 +16,7 @@ function onScan(err, data) {
         console.log('Scan succeeded.');
         data.Items.forEach((table) => {
             console.log( table.maTaiKhoan, table.tenTaiKhoan, table.matKhau, table.loaiTaiKhoan, table.soDuTaiKhoan
-                , table.maThongTinNapThe, table.menhGia, table.ngayNap, table.maTheCao, table.seri);
+                , table.maThongTinNapThe, table.menhGia, table.ngayNap, table.maTheCao, table.seri );
         
            
         });
