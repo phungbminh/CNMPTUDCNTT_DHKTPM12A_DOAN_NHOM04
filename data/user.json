@@ -1,0 +1,26 @@
+[
+    {
+        "maTaiKhoan":1,
+        "tenTaiKhoan":"phung",
+        "matKhau":"123",
+        "loaiTaiKhoan":"hoc_vien",
+        "soDuTaiKhoan":10000,
+        "maThanhVien":1,
+        "tenThanhVien":"Bui Minh Phung",
+        "sdt":"0123456789",
+        "diaChi":"12 Nguyen van Bao",
+        "email":"phung@gmail.com"
+    },
+    {
+        "maTaiKhoan":2,
+        "tenTaiKhoan":"nghia",
+        "matKhau":"123",
+        "loaiTaiKhoan":"giao_vien",
+        "soDuTaiKhoan":10000,
+        "maThanhVien":2,
+        "tenThanhVien":"Pham Trung Nghia",
+        "sdt":"0123456789",
+        "diaChi":"Q12",
+        "email":"nghia@gmail.com"
+    }
+]

@@ -1,0 +1,39 @@
+[
+    {
+            "maThanhVien":1,
+            "tenThanhVien":"Bui Minh Phung",
+            "sdt":"0123456789",
+            "diaChi":"12 Nguyen van Bao",
+            "email":"phung@gmail.com",
+            "maKhoaHoc":1,
+            "tenKhoaHoc":"Nhung con heo con",
+            "anhDaiDien":"/imgae/đá",
+            "moTaKhoaHoc":"khoa hoc xin lam",
+            "giaKhoaHoc":1000,
+            "maBaiHoc":1,
+            "url":"dsadasa/dasds/dsad",
+            "tenBaiHoc":"Bai mo dau",
+            "moTaBaiHoc":"mo ta bai hoc",
+            "maThongTinMuaKhoaHoc":1,
+            "ngayMua":"2019/21/12"     
+    },
+    {
+        "maThanhVien":1,
+        "tenThanhVien":"Bui Minh Phung",
+        "sdt":"0123456789",
+        "diaChi":"12 Nguyen van Bao",
+        "email":"phung@gmail.com",
+        "maKhoaHoc":1,
+        "tenKhoaHoc":"Nhung con heo con",
+        "anhDaiDien":"/imgae/đá",
+        "moTaKhoaHoc":"khoa hoc xin lam",
+        "giaKhoaHoc":1000,
+        "maBaiHoc":2,
+        "url":"dsadasa/dasds/dsad",
+        "tenBaiHoc":"Bai mo dau",
+        "moTaBaiHoc":"mo ta bai hoc",
+        "maThongTinMuaKhoaHoc":1,
+        "ngayMua":"2019/21/12"     
+}
+    
+]
