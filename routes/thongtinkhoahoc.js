@@ -52,7 +52,7 @@ router.get('/', function (req, res, next) {
                         } else {
                             console.log(data.Items);
                             if (data.Items != null) {
-                                res.render('thongtinkhoahoc', { tenTaiKhoan: null, listBaiHoc: [data.Items[0]], soThuTu: req.query.soThuTu });
+                                res.render('thongtinkhoahoc', { tenTaiKhoan: sess.user.tenTaiKhoan, listBaiHoc: [data.Items[0]], soThuTu: req.query.soThuTu });
                             }
                         }
                     });
