@@ -26,7 +26,9 @@ allTable.forEach((table) => {
             "tenBaiHoc":table.tenBaiHoc,
             "moTaBaiHoc":table.moTaBaiHoc,
             "maThongTinMuaKhoaHoc":table.maThongTinMuaKhoaHoc,
-            "ngayMua":table.ngayMua
+            "ngayMua":table.ngayMua,
+            "soThuTu":table.soThuTu,
+            "danhMuc":table.danhMuc
 
         }
     };

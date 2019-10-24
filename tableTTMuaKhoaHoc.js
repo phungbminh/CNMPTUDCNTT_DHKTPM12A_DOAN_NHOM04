@@ -15,7 +15,8 @@ var params = {
         { AttributeName: "maThongTinMuaKhoaHoc", AttributeType: "N" },
         { AttributeName: "maBaiHoc", AttributeType: "N" },
         { AttributeName: "maThanhVien", AttributeType: "N" },
-        { AttributeName: "maKhoaHoc", AttributeType: "N" }
+        { AttributeName: "maKhoaHoc", AttributeType: "N" },
+        { AttributeName: "soThuTu", AttributeType: "N" }
 
    
     ],
@@ -29,6 +30,19 @@ var params = {
             IndexName: 'index_TTMuaKhoaHoc',
             KeySchema: [
                 { AttributeName: "maThongTinMuaKhoaHoc", KeyType: "HASH"},  //Partition key
+            ],
+            Projection: {
+                ProjectionType: 'ALL'
+            },
+            ProvisionedThroughput: {
+                ReadCapacityUnits: 10,
+                WriteCapacityUnits: 10
+            }
+        },
+        {
+            IndexName: 'index_ThuTu',
+            KeySchema: [
+                { AttributeName: "soThuTu", KeyType: "HASH"},  //Partition key
             ],
             Projection: {
                 ProjectionType: 'ALL'

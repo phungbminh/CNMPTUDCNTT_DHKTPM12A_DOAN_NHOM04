@@ -21,7 +21,6 @@ allTable.forEach((table) => {
             "sdt":table.sdt,
             "diaChi":table.diaChi,
             "email":table.email
-
         }
     };
     docClient.put(params,(err, data) => {

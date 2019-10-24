@@ -6,18 +6,19 @@
         "diaChi":"Q12",
         "email":"nghia@gmail.com",
         "maKhoaHoc":1,
-        "tenKhoaHoc":"Nhung con heo con",
-        "anhDaiDien":"/imgae/đá",
+        "tenKhoaHoc":"Nhung con heo con 1",
+        "anhDaiDien":"anh1.jpg",
         "moTaKhoaHoc":"khoa hoc xin lam",
         "danhMuc":"Lich Su",
         "giaKhoaHoc":1000,
         "maBaiHoc":2,
-        "url":"dsadasa/dasds/dsad",
+        "url":"bai1.mp4",
         "tenBaiHoc":"Bai mo dau",
         "moTaBaiHoc":"mo ta bai hoc",
         "maThongTinKiemDuyet":1,
         "ngayKiemDuyet":"2019/21/12",
-        "trangThaiKiemDuyet":"true"
+        "trangThaiKiemDuyet":"true",
+        "soThuTu":1
     },
     {
         "maThanhVien":1,
@@ -26,18 +27,19 @@
         "diaChi":"Q12",
         "email":"nghia@gmail.com",
         "maKhoaHoc":1,
-        "tenKhoaHoc":"Nhung con heo con",
-        "anhDaiDien":"/imgae/đá",
+        "tenKhoaHoc":"Nhung con heo con 1",
+        "anhDaiDien":"anh1.jpg",
         "moTaKhoaHoc":"khoa hoc xin lam",
         "danhMuc":"Lich Su",
         "giaKhoaHoc":1000,
         "maBaiHoc":5,
-        "url":"dsadasa/dasds/dsad",
-        "tenBaiHoc":"Bai mo dau",
+        "url":"bai2.mp4",
+        "tenBaiHoc":"Bai thu 2",
         "moTaBaiHoc":"mo ta bai hoc",
         "maThongTinKiemDuyet":2,
         "ngayKiemDuyet":"2019/21/12",
-        "trangThaiKiemDuyet":"true"
+        "trangThaiKiemDuyet":"true",
+        "soThuTu":2
     },
     {
         "maThanhVien":1,
@@ -46,18 +48,19 @@
         "diaChi":"Q12",
         "email":"nghia@gmail.com",
         "maKhoaHoc":2,
-        "tenKhoaHoc":"Nhung con heo con",
-        "anhDaiDien":"/imgae/đá",
+        "tenKhoaHoc":"Nhung con heo con 2",
+        "anhDaiDien":"anh2.jpg",
         "moTaKhoaHoc":"khoa hoc xin lam",
         "danhMuc":"Lich Su",
         "giaKhoaHoc":1000,
         "maBaiHoc":6,
-        "url":"dsadasa/dasds/dsad",
+        "url":"bai3.mp4",
         "tenBaiHoc":"Bai mo dau",
         "moTaBaiHoc":"mo ta bai hoc",
         "maThongTinKiemDuyet":2,
         "ngayKiemDuyet":"2019/21/12",
-        "trangThaiKiemDuyet":"true"
+        "trangThaiKiemDuyet":"true",
+        "soThuTu":1
     }
 
 ]

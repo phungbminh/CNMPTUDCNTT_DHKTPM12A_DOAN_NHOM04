@@ -6,16 +6,18 @@
             "diaChi":"12 Nguyen van Bao",
             "email":"phung@gmail.com",
             "maKhoaHoc":1,
-            "tenKhoaHoc":"Nhung con heo con",
-            "anhDaiDien":"/imgae/đá",
+            "tenKhoaHoc":"Nhung con heo con1",
+            "anhDaiDien":"anh1.jpg",
             "moTaKhoaHoc":"khoa hoc xin lam",
             "giaKhoaHoc":1000,
             "maBaiHoc":1,
-            "url":"dsadasa/dasds/dsad",
+            "url":"bai1.mp4",
             "tenBaiHoc":"Bai mo dau",
             "moTaBaiHoc":"mo ta bai hoc",
             "maThongTinMuaKhoaHoc":1,
-            "ngayMua":"2019/21/12"     
+            "ngayMua":"2019/21/12",
+            "danhMuc":"Lich Su",
+            "soThuTu":1    
     },
     {
         "maThanhVien":1,
@@ -24,16 +26,18 @@
         "diaChi":"12 Nguyen van Bao",
         "email":"phung@gmail.com",
         "maKhoaHoc":1,
-        "tenKhoaHoc":"Nhung con heo con",
+        "tenKhoaHoc":"Nhung con heo con 1",
         "anhDaiDien":"/imgae/đá",
         "moTaKhoaHoc":"khoa hoc xin lam",
         "giaKhoaHoc":1000,
         "maBaiHoc":2,
-        "url":"dsadasa/dasds/dsad",
-        "tenBaiHoc":"Bai mo dau",
+        "url":"bai2.mp4",
+        "tenBaiHoc":"Bai thu 2",
         "moTaBaiHoc":"mo ta bai hoc",
         "maThongTinMuaKhoaHoc":1,
-        "ngayMua":"2019/21/12"     
+        "ngayMua":"2019/21/12",
+        "danhMuc":"Lich Su",
+        "soThuTu":2    
 }
     
 ]

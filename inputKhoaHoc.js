@@ -28,7 +28,8 @@ allTable.forEach((table) => {
             "maThongTinKiemDuyet":table.maThongTinKiemDuyet,
             "ngayKiemDuyet":table.ngayKiemDuyet,
             "trangThaiKiemDuyet":table.trangThaiKiemDuyet,
-            "danhMuc":table.danhMuc
+            "danhMuc":table.danhMuc,
+            "soThuTu":table.soThuTu
 
         }
     };

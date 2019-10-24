@@ -167,7 +167,7 @@
                         <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Home</a></li>
                         <li class="list-inline-item text-white h3 font-secondary "></li>
                     </ul>
-                    <p class="text-lighten">Our courses offer a good compromise between the continuous assessment favoured by some universities</p>
+                    <p class="text-lighten">Nếu bạn không muốn học, không ai có thể giúp bạn. Nếu bạn quyết tâm học, không ai có thể ngăn cản bạn dừng lại.</p>
                 </div>
             </div>
         </div>
@@ -183,12 +183,12 @@
                     
                 <div class="col-lg-4 col-sm-6 mb-5">
                     <div class="card p-0 border-primary rounded-0 hover-shadow">
-                        <img class="card-img-top rounded-0" src="Bootstrap/bootstrap_home/images/courses/course-1.jpg" alt="course thumb">
+                        <img class="card-img-top rounded-0" src="images/<%=khoahoc.anhDaiDien%>" alt="course thumb">
                         <div class="card-body">
                             <ul class="list-inline mb-2">
-                                <li class="list-inline-item"><a class="text-color" href="#"><%= khoahoc.moTaKhoaHoc%></a></li>
+                                <li class="list-inline-item"><a class="text-color" href="#"><%= khoahoc.danhMuc%></a></li>
                             </ul>
-                            <a href='/thongtinkhoahoc?maKhoaHoc=<%=khoahoc.maKhoaHoc%>'>
+                            <a href='/thongtinkhoahoc?maKhoaHoc=<%=khoahoc.maKhoaHoc%>&soThuTu=1'>
                                 <h4 class="card-title">
                                    <%= khoahoc.tenKhoaHoc%>
                                 </h4>
