@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/home');
+var dangNhapRouter = require('./routes/dangnhap');
+var thongTinKhoaHocRouter = require('./routes/thongtinkhoahoc');
 
 var session = require('express-session');
 var app = express();
@@ -12,15 +14,28 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use(session({
+  key: 'user_id',
+  secret: '123456',
+  saveUninitialized: false,
+  resave: false
+}));
 
+app.use((req, res, next) => {
+  if (req.cookies.user_id && !req.session.user) {
+      res.clearCookie('user_id');        
+  }
+  next();
+});
+app.use('/', indexRouter);
+app.use('/dangnhap', dangNhapRouter);
+app.use('/thongtinkhoahoc', thongTinKhoaHocRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -36,17 +51,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
-app.use(session({
-  secret: "sosecret",
-  saveUninitialized: false,
-  resave: false
-}));
-
-// middleware to make 'user' available to all templates
-app.use(function(req, res, next) {
-  res.locals.user = req.session.user;
-  next();
 });
 
 module.exports = app;

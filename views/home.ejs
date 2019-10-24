@@ -25,6 +25,7 @@
 
     <!--Favicon-->
     <link rel="shortcut icon" href="Bootstrap/bootstrap_home/images/favicon.ico" type="image/x-icon">
+    
     <link rel="icon" href="Bootstrap/bootstrap_home/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -44,7 +45,7 @@
                     <div class="collapse navbar-collapse" id="navigation">
                         <ul class="navbar-nav ml-auto text-center">
                             <li class="nav-item @@home">
-                                <a class="nav-link" href="courses.html">TRANG CHỦ</a>
+                                <a class="nav-link" href="/">TRANG CHỦ</a>
                             </li>
                            
                             <li class="nav-item dropdown view">
@@ -67,20 +68,21 @@
                             <li class="nav-item @@blog">
                                 <a class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">ĐĂNG KÝ</a>
                             </li>
-                            <li class="nav-item @@blog">
-                                <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">ĐĂNG NHẬP</a>
-                            </li>
+            
                             
                             <li class="nav-item dropdown view" style="margin-right:100px">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false" >
-                                    USER
+                                   aria-haspopup="true" aria-expanded="false">
+                                   User: <%=tenTaiKhoan%>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" size="30" href="teacher.html">Thông tin cá nhân</a>
-                                    <a class="dropdown-item" size="30" href="teacher.html">Nạp thẻ</a>
-                                    <a class="dropdown-item" href="Quanlykhoahoc.html">Quản lý khóa học</a>
-                                    <a class="dropdown-item" href="teacher-single.html">Đăng xuất</a>
+                                    <a class="dropdown-item" size="30" href="/thongtincanhan">Thông tin cá nhân</a>
+                                    <a class="dropdown-item" size="30" href="/napthe">Nạp thẻ</a>
+                                    <a class="dropdown-item" href="/quanlykhoahoc">Quản lý khóa học</a>
+                                    <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                    <%if (tenTaiKhoan == null) { %>
+                                        <a class="dropdown-item" href="/dangnhap">Đăng nhập</a>
+                                    <% } %>
 
                                 </div>
                             </li>
@@ -136,7 +138,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/login" class="row">
+                    <form action="/login" class="row" method="POST">
                         <div class="col-12">
                             <input type="text" class="form-control mb-3" id="loginName" name="userName" placeholder="User Name">
                         </div>
@@ -186,7 +188,7 @@
                             <ul class="list-inline mb-2">
                                 <li class="list-inline-item"><a class="text-color" href="#"><%= khoahoc.moTaKhoaHoc%></a></li>
                             </ul>
-                            <a href="course-single.html">
+                            <a href='/thongtinkhoahoc?maKhoaHoc=<%=khoahoc.maKhoaHoc%>'>
                                 <h4 class="card-title">
                                    <%= khoahoc.tenKhoaHoc%>
                                 </h4>
