@@ -1,6 +1,6 @@
 [
     {
-        "maThanhVien":1,
+        "maThanhVien":2,
         "tenThanhVien":"Pham Trung Nghia",
         "sdt":"0123456789",
         "diaChi":"Q12",
@@ -21,7 +21,7 @@
         "soThuTu":1
     },
     {
-        "maThanhVien":1,
+        "maThanhVien":2,
         "tenThanhVien":"Pham Trung Nghia",
         "sdt":"0123456789",
         "diaChi":"Q12",
@@ -42,7 +42,7 @@
         "soThuTu":2
     },
     {
-        "maThanhVien":1,
+        "maThanhVien":2,
         "tenThanhVien":"Pham Trung Nghia",
         "sdt":"0123456789",
         "diaChi":"Q12",
@@ -61,6 +61,27 @@
         "ngayKiemDuyet":"2019/21/12",
         "trangThaiKiemDuyet":"true",
         "soThuTu":1
+    },
+    {
+        "maThanhVien":2,
+        "tenThanhVien":"Pham Trung Nghia",
+        "sdt":"0123456789",
+        "diaChi":"Q12",
+        "email":"nghia@gmail.com",
+        "maKhoaHoc":2,
+        "tenKhoaHoc":"Nhung con heo con 2",
+        "anhDaiDien":"anh2.jpg",
+        "moTaKhoaHoc":"khoa hoc xin lam",
+        "danhMuc":"Lich Su",
+        "giaKhoaHoc":1000,
+        "maBaiHoc":7,
+        "url":"bai4.mp4",
+        "tenBaiHoc":"Bai số 2",
+        "moTaBaiHoc":"mo ta bai hoc",
+        "maThongTinKiemDuyet":2,
+        "ngayKiemDuyet":"2019/21/12",
+        "trangThaiKiemDuyet":"true",
+        "soThuTu":2
     }
 
 ]

@@ -4,7 +4,7 @@
         "tenTaiKhoan":"phung",
         "matKhau":"123",
         "loaiTaiKhoan":"hoc_vien",
-        "soDuTaiKhoan":10000,
+        "soDuTaiKhoan":0,
         "maThanhVien":1,
         "tenThanhVien":"Bui Minh Phung",
         "sdt":"0123456789",

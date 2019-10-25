@@ -28,6 +28,7 @@
     <link rel="shortcut icon" href="Bootstrap/bootstrap_home/images/favicon.ico" type="image/x-icon">
 
     <link rel="icon" href="Bootstrap/bootstrap_home/images/favicon.ico" type="image/x-icon">
+    
     <style>
         .thumb {
             display: block;
@@ -86,17 +87,36 @@
             padding-left: 20px;
         }
     </style>
+    
 </head>
 
 <body>
-
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p><%=alert%></p>
+            </div>
+            <div class="modal-footer">
+              <a href="/huynapthe"><button type="button" class="btn btn-default" >Không</button></a>
+              <a href="/napthe"><button type="button" class="btn btn-default" >Có</button></a>
+              
+            </div>
+          </div>
+        </div>
+      </div>
     <!-- header -->
     <header class="fixed-top header">
         <!-- navbar -->
         <div class="navigation w-100">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
-                    <a class="navbar-brand" href="index.html"><img src="Bootstrap/bootstrap_home/images/logo.png"
+                    <a class="navbar-brand" href="/"><img src="Bootstrap/bootstrap_home/images/logo.png"
                             alt="logo"></a>
 
                     <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse"
@@ -116,15 +136,7 @@
                                     DANH MỤC
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="teacher.html">Teacher</a>
-                                    <a class="dropdown-item" href="teacher-single.html">Teacher Single</a>
-                                    <a class="dropdown-item" href="notice.html">Notice</a>
-                                    <a class="dropdown-item" href="notice-single.html">Notice Details</a>
-                                    <a class="dropdown-item" href="research.html">Research</a>
-                                    <a class="dropdown-item" href="scholarship.html">Scholarship</a>
-                                    <a class="dropdown-item" href="course-single.html">Course Details</a>
-                                    <a class="dropdown-item" href="event-single.html">Event Details</a>
-                                    <a class="dropdown-item" href="blog-single.html">Blog Details</a>
+            
                                 </div>
                             </li>
                             <li class="nav-item @@blog">
@@ -181,11 +193,7 @@
     <!-- courses -->
     <section class="section">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-lg-4">
-                    Giá khóa học : <span style="color: red"><%=listBaiHoc[0].giaKhoaHoc%></span>
-                </div> 
-            </div>
+           
             <div class="row">
                 <h3>Khóa học : <%=listBaiHoc[0].tenKhoaHoc%></h3>
             </div>
@@ -199,16 +207,25 @@
                                         <source src="video/<%=baihoc.url%>" type="video/mp4">
                                 </video>
                                 <div class="row">
-                                        <h4><%=baihoc.tenBaiHoc%></h4>
-                                  
+                                        <h4><%=baihoc.tenBaiHoc%></h4>      
                                 </div>
-                                <div class="row">
-                                   
+                                <div class="row">        
                                         <p><%=baihoc.moTaBaiHoc%></p>
                                 </div>
                             <%}%>
                         <%});%>
                     </div>
+                    <br>
+                    <%if(listBaiHoc.length < 2){%>
+                        <div class="row">
+                                <div id="gia"class="col-md-6 col-lg-6">     
+                                </div>
+                                <div id="mua"class="col-md- col-lg-6">
+                                        <span > Giá : </span> <span style="font-size: 30px; color: red"><%=listBaiHoc[0].giaKhoaHoc%></span>
+                                    <a href="/muakhoahoc?maKhoaHoc=<%=listBaiHoc[0].maKhoaHoc%>"><button type="button" class="btn btn-warning">Mua</button></a>
+                                </div>  
+                        </div>
+                    <%}%>
                     <!-- /.featured-article -->
                 </div>
                 <div class="col-md-5 col-lg-5">
@@ -232,7 +249,7 @@
                 </div>
 
             </div>
-            
+        
     </section>
     <!-- /courses -->
     <!-- jQuery -->
@@ -253,6 +270,13 @@
     <script src="plugins/google-map/gmap.js"></script>
     <!-- Main Script -->
     <script src="Bootstrap/bootstrap_home/js/script.js"></script>
+    <%if(alert != null){%>
+        <script>
+            $(document).ready(function(){
+                $("#myModal").modal('show');
+            });
+        </script>
+    <%}%>
 </body>
 
 </html>

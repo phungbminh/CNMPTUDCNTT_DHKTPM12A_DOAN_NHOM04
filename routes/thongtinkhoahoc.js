@@ -12,6 +12,7 @@ let docClient = new aws.DynamoDB.DocumentClient();
 router.get('/', function (req, res, next) {
     let sess = req.session;
     var maKhoaHoc = req.query.maKhoaHoc;
+    console.log(maKhoaHoc);
     if (sess.user) {
         console.log("co session");
         var params = {
@@ -31,7 +32,7 @@ router.get('/', function (req, res, next) {
             } else {
                 console.log(data.Items);
                 if (data.Items.length != 0) {
-                    res.render('thongtinkhoahoc', { tenTaiKhoan: sess.user.tenTaiKhoan, listBaiHoc: data.Items, soThuTu: req.query.soThuTu });
+                    res.render('thongtinkhoahoc', { tenTaiKhoan: sess.user.tenTaiKhoan, listBaiHoc: data.Items, soThuTu: req.query.soThuTu , alert:null});
                 } else {
                     var params = {
                         TableName: "KhoaHoc",
@@ -52,13 +53,15 @@ router.get('/', function (req, res, next) {
                         } else {
                             console.log(data.Items);
                             if (data.Items != null) {
-                                res.render('thongtinkhoahoc', { tenTaiKhoan: sess.user.tenTaiKhoan, listBaiHoc: [data.Items[0]], soThuTu: req.query.soThuTu });
+                                console.log(sess.errSoDuTaiKhoan);
+                                res.render('thongtinkhoahoc', { tenTaiKhoan: sess.user.tenTaiKhoan, listBaiHoc: [data.Items[0]], soThuTu: req.query.soThuTu ,alert:sess.errSoDuTaiKhoan});
                             }
                         }
                     });
                 }
             }
         });
+
     } else {
         var params = {
             TableName: "KhoaHoc",
@@ -80,7 +83,7 @@ router.get('/', function (req, res, next) {
                 console.log(data.Items);
                 if (data.Items != null) {
                     console.log("chua co session");
-                    res.render('thongtinkhoahoc', { tenTaiKhoan: null, listBaiHoc: [data.Items[0]], soThuTu: req.query.soThuTu });
+                    res.render('thongtinkhoahoc', { tenTaiKhoan: null, listBaiHoc: [data.Items[0]], soThuTu: req.query.soThuTu,alert:null });
                 }
             }
         });
