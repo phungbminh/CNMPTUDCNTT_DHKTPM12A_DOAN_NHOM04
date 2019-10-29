@@ -16,17 +16,13 @@ router.get('/', function (req, res, next) {
             TableName: "KhoaHoc",
             ExpressionAttributeNames: {
                 '#ttkd': 'trangThaiKiemDuyet',
-                '#ttkh': 'trangThaiKhoaHoc',
-                '#ttbh': 'trangThaiBaiHoc',
                 '#matv' :'maThanhVien'
             },
             ExpressionAttributeValues: {
                 ':valTTKD': 'true',
-                ':valTTKH': 'true',
-                ':valTTBH': 'true',
                 ':valMTV': Number(sess.user.maThanhVien)
             },
-            FilterExpression: '#ttkd = :valTTKD and #ttkh = :valTTKH and #ttbh = :valTTBH and #matv = :valMTV',
+            FilterExpression: '#ttkd = :valTTKD and #matv = :valMTV',
             ReturnConsumedCapacity: 'TOTAL',
         };
         docClient.scan(params, (err, data) => {

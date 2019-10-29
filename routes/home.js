@@ -150,13 +150,20 @@ router.get('/logout', function (req, res, next) {
     });
     res.redirect('/');
 });
+router.get('/logoutGV', function (req, res, next) {
+    req.session.destroy((err) => {
+        if (err)
+            console.log(err);
+    });
+    res.redirect('danhsachkhoahoc');
+});
 
 
 
 router.get('/muakhoahoc', function (req, res, next) {
     let sess = req.session;
     let maKhoaHoc = req.query.maKhoaHoc;
-    if (sess.user) {
+    if (sess.user && sess.user.loaiTaiKhoan == 'hoc_vien') {
         console.log('co user');
         var params = {
             TableName: "KhoaHoc",
@@ -329,6 +336,9 @@ router.get('/huynapthe', function (req, res, next) {
     req.session.errSoDuTaiKhoan = null;
     console.log(req.session);
     res.redirect(req.get('referer'), 302, { alert: null });
+});
+router.get('/huy', function (req, res, next) {
+    res.redirect("danhsachkhoahoc");
 });
 
 router.post('/nap', function (req, res, next) {
@@ -579,7 +589,7 @@ router.post('/themkhoahocform', multipartyMiddleware, function (req, res, next) 
 
     }
     res.redirect("danhsachkhoahoc");
-    //thems3.themS3(req.files.anhdaidien, "haha", res, req);
+
 
 
 
@@ -591,18 +601,14 @@ router.post('/capnhat', multipartyMiddleware, function (req, res, next) {
     let maThongTinKiemDuyet = Math.floor(Math.random() * 999999999);
     let ranUpdate = Math.floor(Math.random() * 999999999);
     let sess = req.session;
-    let listBaiHoc = [];
-    if (sess.user) {
-        console.log(sess.user)
-    }
     console.log(req.body.tuakhoahoc);
     console.log(req.files.anhdaidien.type);
     console.log(req.body.giakhoahoc);
     console.log(req.body.mota);
     console.log(req.body.danhMuc);
+ 
     let count = 0;
-
-    //thems3.themS3(req.files.anhdaidien, String(ranUpdate)+"khoahoc"+ String(maKhoaHoc), "data/images/");
+    thems3.themS3(req.files.anhdaidien, String(ranUpdate)+"khoahoc"+ String(maKhoaHoc), "data/images/");
     while (true) {
         if (req.files["url" + String(count)] == null) {
             break;
@@ -612,62 +618,163 @@ router.post('/capnhat', multipartyMiddleware, function (req, res, next) {
         console.log(req.body["moTa" + String(count)]);
         console.log(req.files["url" + String(count)]);
         console.log(req.body["maBaiHoc" + String(count)])
+        console.log('Start importing');
+        console.log(count);
+        console.log(maThongTinKiemDuyet);
+       
+        let maBaiHoc =  Number(req.body["maBaiHoc" + String(count)]);
+  
+        thems3.themS3(req.files["url" + String(count)],String(ranUpdate)+ "baihoc"+ String(maBaiHoc), "data/video/");
+        let params = {
+            TableName: "KhoaHoc",
+            Item: {
+                "maThanhVien": sess.user.maThanhVien,
+                "tenThanhVien": sess.user.tenThanhVien,
+                "sdt": sess.user.sdt,
+                "diaChi": sess.user.diaChi,
+                "email": sess.user.email,
+                "maKhoaHoc": Number(maKhoaHoc),
+                "tenKhoaHoc": req.body.tuakhoahoc,
+                "anhDaiDien": "https://doanbutket.s3.amazonaws.com/data/images/" + String(ranUpdate) + "khoahoc" + String(maKhoaHoc),
+                "moTaKhoaHoc": req.body.mota,
+                "giaKhoaHoc": req.body.giakhoahoc,
+                "maBaiHoc": maBaiHoc,
+                "url": "https://doanbutket.s3.amazonaws.com/data/video/" + String(ranUpdate) + "baihoc" + String(maBaiHoc),
+                "tenBaiHoc": req.body["tenBaiHoc" + String(count)],
+                "moTaBaiHoc": req.body["moTa" + String(count)],
+                "maThongTinKiemDuyet": maThongTinKiemDuyet,
+                "ngayKiemDuyet": "2019-12-24",
+                "trangThaiKiemDuyet": "true",
+                "danhMuc": req.body.danhMuc,
+                "soThuTu": Number(count + 1),
+                "trangThaiKhoaHoc": "true",
+                "trangThaiBaiHoc": "true"
+            }
+        };
+        docClient.put(params, (err, data) => {
+            if (err) {
+                console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
 
+            } else {
+                console.log(`Cap nhat bai hoc thu ${count}--------------------------`);
+            }
+        });
+        
         count = count + 1;
     }
-
-    //thems3.themS3(req.files["url" + String(count)],String(ranUpdate)+ "baihoc"+ String(maBaiHoc), "data/video/");
-    console.log('Start importing');
-    let params = {
-        TableName: "KhoaHoc",
-        Item: {
-            "maThanhVien": maThanhVien,
-            "tenThanhVien": sess.user.tenThanhVien,
-            "sdt": sess.user.sdt,
-            "diaChi": sess.user.diaChi,
-            "email": sess.user.email,
-            "maKhoaHoc": maKhoaHoc,
-            "tenKhoaHoc": req.body.tuakhoahoc,
-            "anhDaiDien": "https://doanbutket.s3.amazonaws.com/data/images/" + String(ranUpdate) + "khoahoc" + String(maKhoaHoc),
-            "moTaKhoaHoc": req.body.mota,
-            "giaKhoaHoc": req.body.giakhoahoc,
-            "maBaiHoc": maBaiHoc,
-            "url": "https://doanbutket.s3.amazonaws.com/data/video/" + String(ranUpdate) + "baihoc" + String(maBaiHoc),
-            "tenBaiHoc": req.body["tenBaiHoc" + String(count)],
-            "moTaBaiHoc": req.body["moTa" + String(count)],
-            "maThongTinKiemDuyet": Number(maThongTinKiemDuyet),
-            "ngayKiemDuyet": "2019-12-24",
-            "trangThaiKiemDuyet": "true",
-            "danhMuc": req.body.danhMuc,
-            "soThuTu": count,
-            "trangThaiKhoaHoc": "true",
-            "trangThaiBaiHoc": "true"
-
-        }
-    };
-    docClient.put(params, (err, data) => {
-        if (err) {
-            console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
-
-        } else {
-            console.log(`User created ${maKhoaHoc}`);
-
-
-        }
-    });
-
-
-
-
-
-
+    
     res.redirect("danhsachkhoahoc");
 
-
-
-
-
 });
+router.get('/an', function (req, res, next) {
+    let maKhoaHoc = req.query.maKhoaHoc;
+    console.log(Number(maKhoaHoc));
+    var params = {
+        TableName: "KhoaHoc",
+        ExpressionAttributeNames: {
+            '#makh': 'maKhoaHoc',
+            '#ttkd': 'trangThaiKiemDuyet'
+        },
+        ExpressionAttributeValues: {
+            ':maKhoaHoc': Number(maKhoaHoc),
+            ':thongTinKD': 'true'
+        },
+        FilterExpression: '#makh = :maKhoaHoc and #ttkd = :thongTinKD',
+        ReturnConsumedCapacity: 'TOTAL',
+    }
+    docClient.scan(params, function (err, data) {
+        if (err) {
+            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+        } else {
+            console.log(data.Items);
+            if (data.Items != null) {
+                data.Items.forEach(item =>{
 
+                    var params3 = {
+                        TableName: "KhoaHoc",
+                        Key: {
+                            "maKhoaHoc": Number(maKhoaHoc),
+                            "maBaiHoc":item.maBaiHoc
+                        },
+                        UpdateExpression: "set trangThaiKhoaHoc= :r",
+                        ExpressionAttributeValues: {
+                            ":r": "false"
+                        },
+                        ReturnValues: "UPDATED_NEW"
+                    };
+                
+                    console.log("Updating");
+                    docClient.update(params3, function (err, data) {
+                        if (err) {
+                            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+                        } else {
+                            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+                            
+                        }
+                    });
+                });
+                
+            }
+        }
+    });
+    res.redirect("danhsachkhoahoc");
+    
+    
+});
+router.get('/hien', function (req, res, next) {
+    let maKhoaHoc = req.query.maKhoaHoc;
+    console.log(Number(maKhoaHoc));
+    var params = {
+        TableName: "KhoaHoc",
+        ExpressionAttributeNames: {
+            '#makh': 'maKhoaHoc',
+            '#ttkd': 'trangThaiKiemDuyet'
+        },
+        ExpressionAttributeValues: {
+            ':maKhoaHoc': Number(maKhoaHoc),
+            ':thongTinKD': 'true'
+        },
+        FilterExpression: '#makh = :maKhoaHoc and #ttkd = :thongTinKD',
+        ReturnConsumedCapacity: 'TOTAL',
+    }
+    docClient.scan(params, function (err, data) {
+        if (err) {
+            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+        } else {
+            console.log(data.Items);
+            if (data.Items != null) {
+                data.Items.forEach(item =>{
+
+                    var params3 = {
+                        TableName: "KhoaHoc",
+                        Key: {
+                            "maKhoaHoc": Number(maKhoaHoc),
+                            "maBaiHoc":item.maBaiHoc
+                        },
+                        UpdateExpression: "set trangThaiKhoaHoc= :r",
+                        ExpressionAttributeValues: {
+                            ":r": "true"
+                        },
+                        ReturnValues: "UPDATED_NEW"
+                    };
+                
+                    console.log("Updating");
+                    docClient.update(params3, function (err, data) {
+                        if (err) {
+                            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+                        } else {
+                            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+                            
+                        }
+                    });
+                });
+                
+            }
+        }
+    });
+    res.redirect("danhsachkhoahoc");
+    
+    
+});
 
 module.exports = router;

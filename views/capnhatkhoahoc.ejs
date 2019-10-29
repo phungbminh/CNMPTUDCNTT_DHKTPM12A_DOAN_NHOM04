@@ -27,7 +27,7 @@
 <body>
     <!-- container section start -->
     <section id="container" class="">
-            
+
         <!--header start-->
         <header class="header dark-bg">
             <div class="toggle-nav">
@@ -98,13 +98,13 @@
             <div id="sidebar" class="nav-collapse ">
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu">
-                        
-                        <li class="">
-                                <a class="" href="/danhsachkhoahoc">
-                                    <i class="icon_house_alt"></i>
-                                    <span>Danh sách khóa học</span>
-                                </a>
-                            </li>
+
+                    <li class="">
+                        <a class="" href="/danhsachkhoahoc">
+                            <i class="icon_house_alt"></i>
+                            <span>Danh sách khóa học</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- sidebar menu end-->
             </div>
@@ -120,92 +120,107 @@
                 </div>
                 <!-- page start-->
                 <input type="number" id="lenghtArray" hidden="true" value="<%=listBaiHoc.length%>">
-                
+
                 <section class="panel">
                     <header class="panel-heading">
                         Thông tin khóa học
                     </header>
                     <div class="panel-body">
                         <div class="form">
-                            <form class="form-validate form-horizontal" id="feedback_form" method="POST"
-                                action="/capnhat" encType="multipart/form-data" >
+                            <form class="form-validate form-horizontal" id="form_register" method="POST"
+                                action="/capnhat" encType="multipart/form-data">
                                 <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-2">Tựa khóa học <span
-                                            class="required">*</span></label>
+                                    <label for="cname" class="control-label col-lg-2">Mã khóa học</label>
                                     <div class="col-lg-10">
-                                            <input class="form-control" id="cname" name="maKhoaHoc" minlength="5"
-                                            type="text" required value="<%=listBaiHoc[0].maKhoaHoc%>" hidden="true"/>
-                                        <input class="form-control" id="cname" name="tuakhoahoc" minlength="5"
-                                            type="text" required value="<%=listBaiHoc[0].tenKhoaHoc%>"/>
+                                        <input readonly="true" class="form-control" id="makhoahoc" name="maKhoaHoc"
+                                            minlength="5" type="text" value="<%=listBaiHoc[0].maKhoaHoc%>" />
                                     </div>
                                 </div>
                                 <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-2">Ảnh đại diện <span
-                                            class="required">*</span></label>
+                                    <label for="cname" class="control-label col-lg-2">Tựa khóa học</label>
                                     <div class="col-lg-10">
-                                        <input type="file" id="exampleInputFile" name="anhdaidien">
+                                        <input class="form-control" id="tuakhoahoc" name="tuakhoahoc" minlength="5"
+                                            type="text" value="<%=listBaiHoc[0].tenKhoaHoc%>" />
+                                        <span id="tuakhoahoc_err"></span>
                                     </div>
                                 </div>
                                 <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-2">Danh muc <span
-                                            class="required">*</span></label>
-                                            <div class="col-lg-10">
-                                                <select class="form-control" name="danhMuc">
-                                                    <option value="toan">Toán</option>
-                                                    <option value="lich_su">Lịch sử</option>
-                                                    <option value="dia_li">Địa lí</option>
-                                                    <option value="hoa_hoc">Hóa học</option>
-                                                    <option value="van_hoc">Văn học</option>
-                                                    <option value="gdcd">Giáo dục công dân</option>
-                                                    <option value="sinh_hoc">Sinh học</option>
-                                                    <option value="anh_van">Anh văn</option>
-                                                    <option value="tin_hoc">Tin học</option>
-                                                </select>
-                                            <br>
-                                </div>
-                                
-                                <div class="form-group ">
-                                    <label for="curl" class="control-label col-lg-2">Giá khóa học</label>
+                                    <label for="cname" class="control-label col-lg-2">Ảnh đại diện</label>
                                     <div class="col-lg-10">
-                                        <input class="form-control " id="curl" type="number" name="giakhoahoc" value="<%=listBaiHoc[0].giaKhoaHoc%>" />
+                                        <input type="file" id="anhdaidien" name="anhdaidien">
+                                        <span id="anhdaidien_err"></span>
                                     </div>
-                                </div>
-                                <div class="form-group ">
-                                    <label for="ccomment" class="control-label col-lg-2">Mô tả</label>
-                                    <div class="col-lg-10">
-                                        <textarea class="form-control " id="ccomment" name="mota" required ><%=listBaiHoc[0].moTaKhoaHoc%></textarea>
-                                    </div>
-                                </div>
 
-                                <div class="input_fields_wrap"
-                                    style="border: 1px solid bisque;box-shadow:2px 1px 2px 3px #888888; margin-bottom: 50px;">
-                                    <button style="margin-bottom: 20px;" type="button" class="add_field_button btn btn-primary">Thêm bài học</button>
-                                    <button style="margin-bottom: 20px;" type="button" class="delete_button btn btn-primary">Xóa</button>
-                                    <div><input style="display: none;" type="text" name="tenbaihoc"></div>
-                                    <% for (var i = 1; i <= listBaiHoc.length; i++) { %>
-                                    <div id="div<%=i%>" style="margin-bottom:15px;">
-                                        <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc<%=i - 1%>" value="<%=listBaiHoc[i-1].tenBaiHoc%>"/> 
-                                        <input style="border: 1px solid black;" type="text" name="moTa<%=i - 1%>" value="<%=listBaiHoc[i-1].moTaBaiHoc%>""/>  
-                                        <input type="file" class="form-control" name="url<%=i - 1%>" placeholder="Chọn file.">
-                                        <input type="text" name="maBaiHoc<%=i - 1%>" value="<%=listBaiHoc[i-1].maBaiHoc%>" hidden="true"/> 
-                                    </div>
-                                    <% } %>
                                 </div>
-                                <div class="row">
+                                <div class="form-group ">
+                                    <label for="cname" class="control-label col-lg-2">Danh muc</label>
+                                    <div class="col-lg-10">
+                                        <select class="form-control" name="danhMuc">
+                                            <option value="toan">Toán</option>
+                                            <option value="lich_su">Lịch sử</option>
+                                            <option value="dia_li">Địa lí</option>
+                                            <option value="hoa_hoc">Hóa học</option>
+                                            <option value="van_hoc">Văn học</option>
+                                            <option value="gdcd">Giáo dục công dân</option>
+                                            <option value="sinh_hoc">Sinh học</option>
+                                            <option value="anh_van">Anh văn</option>
+                                            <option value="tin_hoc">Tin học</option>
+                                        </select>
+                                        <br>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label for="curl" class="control-label col-lg-2">Giá khóa học</label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control " id="giakhoahoc" type="number" name="giakhoahoc"
+                                                value="<%=listBaiHoc[0].giaKhoaHoc%>" />
+                                            <span id="giakhoahoc_err"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="ccomment" class="control-label col-lg-2">Mô tả</label>
+                                        <div class="col-lg-10">
+                                            <textarea class="form-control " id="mota" name="mota"
+                                                required><%=listBaiHoc[0].moTaKhoaHoc%></textarea>
+                                            <span id="mota_err"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="input_fields_wrap"
+                                        style="border: 1px solid bisque;box-shadow:2px 1px 2px 3px #888888; margin-bottom: 50px;">
+                                        <!-- <button style="margin-bottom: 20px;" type="button" class="add_field_button btn btn-primary">Thêm bài học</button>
+                                    <button style="margin-bottom: 20px;" type="button" class="delete_button btn btn-primary">Xóa</button> -->
+                                        <div><input style="display: none;" type="text" name="tenbaihoc"></div>
+                                        <% for (var i = 1; i <= listBaiHoc.length; i++) { %>
+                                        <div id="div<%=i%>" style="margin-bottom:15px;">
+                                            <input style="border: 1px solid black;" type="text" required="true"
+                                                name="tenBaiHoc<%=i - 1%>" value="<%=listBaiHoc[i-1].tenBaiHoc%>" />
+                                            <input style="border: 1px solid black;" type="text" name="moTa<%=i - 1%>"
+                                                value="<%=listBaiHoc[i-1].moTaBaiHoc%>" required="true" />
+                                            <input type="file" class="form-control" name="url<%=i - 1%>"
+                                                placeholder="Chọn file." required="true">
+                                            <input type="text" name="maBaiHoc<%=i - 1%>"
+                                                value="<%=listBaiHoc[i-1].maBaiHoc%>" hidden="true" />
+                                        </div>
+                                        <% } %>
+                                    </div>
+                                    <div class="row">
 
 
-                                    <div class="form-group">
-                                        <div class="col-lg-offset-10 col-lg-2">
-                                            <input class="btn btn-primary" type="submit" 
-                                                value="Lưu" />
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-10 col-lg-2">
+                                                <input class="btn btn-primary" type="submit" value="Lưu" />
+
                                                 <%if(listBaiHoc[0].trangThaiKhoaHoc == 'true'){%>
-                                                    <a href="/an?maThanhVien=<%=listBaiHoc[0].maThanhVien%>&maKhoaHoc=<%=listBaiHoc[0].maKhoaHoc%>"><button type="button" class="btn btn-danger">Ẩn</button></a>
+                                                <a href="/an?maKhoaHoc=<%=listBaiHoc[0].maKhoaHoc%>"><button
+                                                        type="button" class="btn btn-danger">Ẩn</button></a>
                                                 <%}%>
                                                 <%if(listBaiHoc[0].trangThaiKhoaHoc == 'false'){%>
-                                                    <a href="/hien?maThanhVien=<%=listBaiHoc[0].maThanhVien%>maKhoaHoc=<%=listBaiHoc[0].maKhoaHoc%>"><button type="button" class="btn btn-success">Hiện</button></a>
-                                                value="Hiện" />
+                                                <a href="/hien?maKhoaHoc=<%=listBaiHoc[0].maKhoaHoc%>"><button
+                                                        type="button" class="btn btn-success">Hiện</button></a>
+
                                                 <%}%>
-                                                
+                                                <a href="/huy"><button type="button" class="btn btn-success">Hủy</button></a>
 
                                         </div>
                                     </div>
@@ -244,10 +259,15 @@
             var delete_button = $(".delete_button");
             var lenght = $('#lenghtArray').val();
             console.log(lenght);
-           
+
 
             // for(var i = 1; i <= Number(lenght); i++){
-            //     $(wrapper).append('<div id="div'+String(i)+'" style="margin-bottom:15px;"> <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc' + String(i-1) + '" value="<%=listBaiHoc[0].tenBaiHoc%>"/> <input style="border: 1px solid black;" type="text" name="moTa' + (i - 1).toString(10) + '" placeholder="Mô tả bài học."/>  <input type="file" class="form-control" name="url' + (i - 1).toString(10) + '" placeholder="Chọn file."></div>'); //add input box
+            //     $(wrapper).append('<div id="div'+String(i)+'" style="margin-bottom:15px;"> <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc' + String(i-1) + '" value="<%=listBaiHoc[0].tenBaiHoc%>"/>
+            // <input style="border: 1px solid black;" type="text"
+            //     name="moTa' + (i - 1).toString(10) + '"
+            //     placeholder="Mô tả bài học." /> <input type="file"
+            //         class="form-control" name="url' + (i - 1).toString(10) + '"
+            //         placeholder="Chọn file."></div>'); //add input box
             // }
             var x = Number(lenght); //initlal text box count
             $(add_button).click(function (e) { //on add input button click
@@ -255,21 +275,62 @@
                 if (x < max_fields) { //max input box allowed
                     x++; //text box increment
                     //Nếu load gì load trên này .
-                    $(wrapper).append('<div id="div'+String(x)+'" style="margin-bottom:15px;"> <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc' + (x - 1).toString(10) + '" placeholder="Tên bài học."/> <input style="border: 1px solid black;" type="text" name="moTa' + (x - 1).toString(10) + '" placeholder="Mô tả bài học."/>  <input type="file" class="form-control" name="url' + (x - 1).toString(10) + '" placeholder="Chọn file."></div>'); //add input box
+                    $(wrapper).append('<div id="div' + String(x) + '" style="margin-bottom:15px;"> <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc' + (x - 1).toString(10) + '" placeholder="Tên bài học."/> <input style="border: 1px solid black;" type="text" name="moTa' + (x - 1).toString(10) + '" placeholder="Mô tả bài học."/>  <input type="file" class="form-control" name="url' + (x - 1).toString(10) + '" placeholder="Chọn file." required="true" ></div>'); //add input box
                 }
             });
-            $(delete_button).click(function(event) {
+            
+            $(delete_button).click(function (event) {
                 event.preventDefault();
-                if(x > 0){
+                if (x > 0) {
                     console.log(x);
-                    $('#div'+String(x)).remove();
+                    $('#div' + String(x)).remove();
                     x--;
                 }
             });
+            $('#form_register').submit(function () {
+
+                // BƯỚC 1: Lấy dữ liệu từ form
+                var tuakhoahoc = $.trim($('#tuakhoahoc').val());
+                var giakhoahoc = $.trim($('#giakhoahoc').val());
+                var mota = $.trim($('#mota').val());
+                var anhdaidien = $.trim($('#anhdaidien').val());
+
+                // BƯỚC 2: Validate dữ liệu
+                // Biến cờ hiệu
+                var flag = true;
+
+                // Username
+                if (tuakhoahoc == '') {
+                    $('#tuakhoahoc_err').text('Tựa khóa học không được rỗng');
+                    flag = false;
+                }
+                else {
+                    $('#tuakhoahoc_err').text('');
+                }
+                if (giakhoahoc == '') {
+                    $('#giakhoahoc_err').text('Nhập giá khóa học');
+                    flag = false;
+                }
+                else {
+                    $('#giakhoahoc_err').text('');
+                }
+                if (mota == '') {
+                    $('#mota_err').text('Nhập mô tả');
+                    flag = false;
+                }
+                else {
+                    $('#mota_err').text('');
+                }
+                if (anhdaidien == '') {
+                    $('#anhdaidien_err').text('Chọn ảnh đại diện');
+                    flag = false;
+                }
+                else {
+                    $('#anhdaidien_err').text('');
+                }
+                 return flag;
+            });
         });
-    </script>
-
-
-</body>
-
-</html>
+    </script> 
+    </body> 
+    </html>
