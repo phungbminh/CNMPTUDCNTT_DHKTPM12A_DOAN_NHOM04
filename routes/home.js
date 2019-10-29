@@ -362,7 +362,7 @@ router.post('/nap', function (req, res, next) {
             console.error(`Unable to add user ${maThongTinNapThe}, ${JSON.stringify(err, null, 2)}`);
         } else {
             console.log(`User created ${maThongTinNapThe}`);
-            
+
         }
     });
     //cập nhật số dư trên bảng User
@@ -518,7 +518,7 @@ router.post('/themkhoahocform', multipartyMiddleware, function (req, res, next) 
     let maKhoaHoc = Math.floor(Math.random() * 999999999);
     let maThongTinKiemDuyet = Math.floor(Math.random() * 999999999);
     let sess = req.session;
-    if(sess.user){
+    if (sess.user) {
         console.log(sess.user)
     }
     console.log(req.body.tuakhoahoc);
@@ -526,73 +526,73 @@ router.post('/themkhoahocform', multipartyMiddleware, function (req, res, next) 
     console.log(req.body.giakhoahoc);
     console.log(req.body.mota);
     console.log(req.body.danhMuc);
-    thems3.themS3(req.files.anhdaidien, "khoahoc"+ String(maKhoaHoc), "data/images/");
-    while(true){
-        if(req.files["url" + String(count)] == null){
+    thems3.themS3(req.files.anhdaidien, "khoahoc" + String(maKhoaHoc), "data/images/");
+    while (true) {
+        if (req.files["url" + String(count)] == null) {
             break;
         }
         let maBaiHoc = Math.floor(Math.random() * 999999999);
         console.log(req.body["tenBaiHoc" + String(count)]);
         console.log(req.body["moTa" + String(count)]);
         console.log(req.files["url" + String(count)]);
-        thems3.themS3(req.files["url" + String(count)], "baihoc"+ String(maBaiHoc), "data/video/");
+        thems3.themS3(req.files["url" + String(count)], "baihoc" + String(maBaiHoc), "data/video/");
         console.log('Start importing');
         let params = {
             TableName: "KhoaHoc",
             Item: {
-                "maThanhVien":sess.user.maThanhVien,
-                "tenThanhVien":sess.user.tenThanhVien,
-                "sdt":sess.user.sdt,
-                "diaChi":sess.user.diaChi,
-                "email":sess.user.email,
-                "maKhoaHoc":maKhoaHoc,
-                "tenKhoaHoc":req.body.tuakhoahoc,
-                "anhDaiDien":"https://doanbutket.s3.amazonaws.com/data/images/khoahoc"+ String(maKhoaHoc) ,
-                "moTaKhoaHoc":req.body.mota,
-                "giaKhoaHoc":req.body.giakhoahoc,
-                "maBaiHoc":maBaiHoc,
-                "url":"https://doanbutket.s3.amazonaws.com/data/video/baihoc"+ String(maBaiHoc),
-                "tenBaiHoc":req.body["tenBaiHoc" + String(count)],
-                "moTaBaiHoc":req.body["moTa" + String(count)],
+                "maThanhVien": sess.user.maThanhVien,
+                "tenThanhVien": sess.user.tenThanhVien,
+                "sdt": sess.user.sdt,
+                "diaChi": sess.user.diaChi,
+                "email": sess.user.email,
+                "maKhoaHoc": maKhoaHoc,
+                "tenKhoaHoc": req.body.tuakhoahoc,
+                "anhDaiDien": "https://doanbutket.s3.amazonaws.com/data/images/khoahoc" + String(maKhoaHoc),
+                "moTaKhoaHoc": req.body.mota,
+                "giaKhoaHoc": req.body.giakhoahoc,
+                "maBaiHoc": maBaiHoc,
+                "url": "https://doanbutket.s3.amazonaws.com/data/video/baihoc" + String(maBaiHoc),
+                "tenBaiHoc": req.body["tenBaiHoc" + String(count)],
+                "moTaBaiHoc": req.body["moTa" + String(count)],
                 "maThongTinKiemDuyet": Number(maThongTinKiemDuyet),
-                "ngayKiemDuyet":"2019-12-24",
-                "trangThaiKiemDuyet":"true",
-                "danhMuc":req.body.danhMuc,
-                "soThuTu":count,
-                "trangThaiKhoaHoc":"true",
-                "trangThaiBaiHoc":"true"
+                "ngayKiemDuyet": "2019-12-24",
+                "trangThaiKiemDuyet": "true",
+                "danhMuc": req.body.danhMuc,
+                "soThuTu": count,
+                "trangThaiKhoaHoc": "true",
+                "trangThaiBaiHoc": "true"
 
             }
         };
-        docClient.put(params,(err, data) => {
+        docClient.put(params, (err, data) => {
             if (err) {
                 console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
-                
-            }else{
+
+            } else {
                 console.log(`User created ${maKhoaHoc}`);
 
-                
+
             }
         });
-                        
+
         count = count + 1;
 
     }
     res.redirect("danhsachkhoahoc");
     //thems3.themS3(req.files.anhdaidien, "haha", res, req);
-    
+
 
 
 
 });
 router.post('/capnhat', multipartyMiddleware, function (req, res, next) {
-    
+
     let maKhoaHoc = req.body.maKhoaHoc;
     let maThongTinKiemDuyet = Math.floor(Math.random() * 999999999);
     let ranUpdate = Math.floor(Math.random() * 999999999);
     let sess = req.session;
     let listBaiHoc = [];
-    if(sess.user){
+    if (sess.user) {
         console.log(sess.user)
     }
     console.log(req.body.tuakhoahoc);
@@ -601,97 +601,69 @@ router.post('/capnhat', multipartyMiddleware, function (req, res, next) {
     console.log(req.body.mota);
     console.log(req.body.danhMuc);
     let count = 0;
-    var params = {
-        TableName: "KhoaHoc",
-        ExpressionAttributeNames: {
-            '#makh': 'maKhoaHoc',
-            '#ttkd': 'trangThaiKiemDuyet',
-            '#ttkh': 'trangThaiKhoaHoc',
-            '#ttbh' : 'trangThaiBaiHoc'
-        },
-        ExpressionAttributeValues: {
-            ':maKhoaHoc': Number(maKhoaHoc),
-            ':thongTinKD': 'true',
-            ':valTTKH': 'true',
-            ':valTTBH': 'true'
-        },
-        FilterExpression: '#makh = :maKhoaHoc and #ttkd = :thongTinKD and #ttkh = :valTTKH and #ttbh = :valTTBH',
-        ReturnConsumedCapacity: 'TOTAL',
-    }
-    docClient.scan(params, function (err, data) {
-        if (err) {
-            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
-        } else {
-            if (data.Items != null) {
-                if(data.Items != null){
-                 
-                    console.log(data.Items);
-                }
 
-            }
-        }
-    });
     //thems3.themS3(req.files.anhdaidien, String(ranUpdate)+"khoahoc"+ String(maKhoaHoc), "data/images/");
-    while(true){
-        if(req.files["url" + String(count)] == null){
+    while (true) {
+        if (req.files["url" + String(count)] == null) {
             break;
         }
-        
+
         console.log(req.body["tenBaiHoc" + String(count)]);
         console.log(req.body["moTa" + String(count)]);
         console.log(req.files["url" + String(count)]);
-       
+        console.log(req.body["maBaiHoc" + String(count)])
+
         count = count + 1;
     }
-     
-                          //thems3.themS3(req.files["url" + String(count)],String(ranUpdate)+ "baihoc"+ String(maBaiHoc), "data/video/");
-                    // console.log('Start importing');
-                    // let params = {
-                    //     TableName: "KhoaHoc",
-                    //     Item: {
-                    //         "maThanhVien": maThanhVien,
-                    //         "tenThanhVien":sess.user.tenThanhVien,
-                    //         "sdt":sess.user.sdt,
-                    //         "diaChi":sess.user.diaChi,
-                    //         "email":sess.user.email,
-                    //         "maKhoaHoc":maKhoaHoc,
-                    //         "tenKhoaHoc":req.body.tuakhoahoc,
-                    //         "anhDaiDien":"https://doanbutket.s3.amazonaws.com/data/images/"+String(ranUpdate)+"khoahoc"+ String(maKhoaHoc) ,
-                    //         "moTaKhoaHoc":req.body.mota,
-                    //         "giaKhoaHoc":req.body.giakhoahoc,
-                    //         "maBaiHoc":maBaiHoc,
-                    //         "url":"https://doanbutket.s3.amazonaws.com/data/video/"+String(ranUpdate)+"baihoc"+ String(maBaiHoc),
-                    //         "tenBaiHoc":req.body["tenBaiHoc" + String(count)],
-                    //         "moTaBaiHoc":req.body["moTa" + String(count)],
-                    //         "maThongTinKiemDuyet": Number(maThongTinKiemDuyet),
-                    //         "ngayKiemDuyet":"2019-12-24",
-                    //         "trangThaiKiemDuyet":"true",
-                    //         "danhMuc":req.body.danhMuc,
-                    //         "soThuTu":count,
-                    //         "trangThaiKhoaHoc":"true",
-                    //         "trangThaiBaiHoc":"true"
 
-                    //     }
-                    // };
-                    // docClient.put(params,(err, data) => {
-                    //     if (err) {
-                    //         console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
-                            
-                    //     }else{
-                    //         console.log(`User created ${maKhoaHoc}`);
+    //thems3.themS3(req.files["url" + String(count)],String(ranUpdate)+ "baihoc"+ String(maBaiHoc), "data/video/");
+    console.log('Start importing');
+    let params = {
+        TableName: "KhoaHoc",
+        Item: {
+            "maThanhVien": maThanhVien,
+            "tenThanhVien": sess.user.tenThanhVien,
+            "sdt": sess.user.sdt,
+            "diaChi": sess.user.diaChi,
+            "email": sess.user.email,
+            "maKhoaHoc": maKhoaHoc,
+            "tenKhoaHoc": req.body.tuakhoahoc,
+            "anhDaiDien": "https://doanbutket.s3.amazonaws.com/data/images/" + String(ranUpdate) + "khoahoc" + String(maKhoaHoc),
+            "moTaKhoaHoc": req.body.mota,
+            "giaKhoaHoc": req.body.giakhoahoc,
+            "maBaiHoc": maBaiHoc,
+            "url": "https://doanbutket.s3.amazonaws.com/data/video/" + String(ranUpdate) + "baihoc" + String(maBaiHoc),
+            "tenBaiHoc": req.body["tenBaiHoc" + String(count)],
+            "moTaBaiHoc": req.body["moTa" + String(count)],
+            "maThongTinKiemDuyet": Number(maThongTinKiemDuyet),
+            "ngayKiemDuyet": "2019-12-24",
+            "trangThaiKiemDuyet": "true",
+            "danhMuc": req.body.danhMuc,
+            "soThuTu": count,
+            "trangThaiKhoaHoc": "true",
+            "trangThaiBaiHoc": "true"
 
-                            
-                    //     }
-                    // });
-        
-        
-                        
-        
+        }
+    };
+    docClient.put(params, (err, data) => {
+        if (err) {
+            console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
 
-   
+        } else {
+            console.log(`User created ${maKhoaHoc}`);
+
+
+        }
+    });
+
+
+
+
+
+
     res.redirect("danhsachkhoahoc");
 
-    
+
 
 
 

@@ -187,6 +187,7 @@
                                         <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc<%=i - 1%>" value="<%=listBaiHoc[i-1].tenBaiHoc%>"/> 
                                         <input style="border: 1px solid black;" type="text" name="moTa<%=i - 1%>" value="<%=listBaiHoc[i-1].moTaBaiHoc%>""/>  
                                         <input type="file" class="form-control" name="url<%=i - 1%>" placeholder="Chọn file.">
+                                        <input type="text" name="maBaiHoc<%=i - 1%>" value="<%=listBaiHoc[i-1].maBaiHoc%>" hidden="true"/> 
                                     </div>
                                     <% } %>
                                 </div>
