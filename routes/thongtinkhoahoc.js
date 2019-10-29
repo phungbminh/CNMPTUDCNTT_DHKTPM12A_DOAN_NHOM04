@@ -13,23 +13,32 @@ router.get('/', function (req, res, next) {
     let sess = req.session;
     var maKhoaHoc = req.query.maKhoaHoc;
     console.log(maKhoaHoc);
-    if (sess.user) {
+    if (sess.user && sess.user.loaiTaiKhoan == 'hoc_vien') {
         console.log("co session");
         var params = {
             TableName: "ThongTinMuaKhoaHoc",
             ExpressionAttributeNames: {
                 '#makh': 'maKhoaHoc',
+                '#ttkh': 'trangThaiKhoaHoc',
+                '#ttbh' : 'trangThaiBaiHoc',
+                '#matv' : 'maThanhVien'
             },
             ExpressionAttributeValues: {
                 ':maKhoaHoc': Number(maKhoaHoc),
+                ':valTTKH': 'true',
+                ':valTTBH': 'true',
+                ':valMTV' : Number(sess.user.maThanhVien)
             },
-            FilterExpression: '#makh = :maKhoaHoc',
+            FilterExpression: '#makh = :maKhoaHoc and #ttkh = :valTTKH and #ttbh = :valTTBH and #matv = :valMTV',
             ReturnConsumedCapacity: 'TOTAL',
         }
         docClient.scan(params, function (err, data) {
             if (err) {
                 console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
             } else {
+                console.log("Thông tin khóa học đã mua");
+                console.log(Number(maKhoaHoc));
+                console.log(sess.user.maThanhVien);
                 console.log(data.Items);
                 if (data.Items.length != 0) {
                     res.render('thongtinkhoahoc', { tenTaiKhoan: sess.user.tenTaiKhoan, listBaiHoc: data.Items, soThuTu: req.query.soThuTu , alert:null});
@@ -38,13 +47,17 @@ router.get('/', function (req, res, next) {
                         TableName: "KhoaHoc",
                         ExpressionAttributeNames: {
                             '#makh': 'maKhoaHoc',
-                            '#ttkd': 'trangThaiKiemDuyet'
+                            '#ttkd': 'trangThaiKiemDuyet',
+                            '#ttkh': 'trangThaiKhoaHoc',
+                             '#ttbh' : 'trangThaiBaiHoc'
                         },
                         ExpressionAttributeValues: {
                             ':maKhoaHoc': Number(maKhoaHoc),
-                            ':thongTinKD': 'true'
+                            ':thongTinKD': 'true',
+                            ':valTTKH': 'true',
+                            ':valTTBH': 'true'
                         },
-                        FilterExpression: '#makh = :maKhoaHoc and #ttkd = :thongTinKD',
+                        FilterExpression: '#makh = :maKhoaHoc and #ttkd = :thongTinKD and #ttkh = :valTTKH and #ttbh = :valTTBH',
                         ReturnConsumedCapacity: 'TOTAL',
                     }
                     docClient.scan(params, function (err, data) {
@@ -67,13 +80,17 @@ router.get('/', function (req, res, next) {
             TableName: "KhoaHoc",
             ExpressionAttributeNames: {
                 '#makh': 'maKhoaHoc',
-                '#ttkd': 'trangThaiKiemDuyet'
+                '#ttkd': 'trangThaiKiemDuyet',
+                '#ttkh': 'trangThaiKhoaHoc',
+                '#ttbh' : 'trangThaiBaiHoc'
             },
             ExpressionAttributeValues: {
                 ':maKhoaHoc': Number(maKhoaHoc),
-                ':thongTinKD': 'true'
+                ':thongTinKD': 'true',
+                ':valTTKH': 'true',
+                ':valTTBH': 'true'
             },
-            FilterExpression: '#makh = :maKhoaHoc and #ttkd = :thongTinKD',
+            FilterExpression: '#makh = :maKhoaHoc and #ttkd = :thongTinKD and #ttkh = :valTTKH and #ttbh = :valTTBH',
             ReturnConsumedCapacity: 'TOTAL',
         }
         docClient.scan(params, function (err, data) {

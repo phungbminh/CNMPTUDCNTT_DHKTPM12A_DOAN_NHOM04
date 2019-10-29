@@ -91,16 +91,14 @@
 </head>
 
 <body>
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" >
+        <div class="modal-dialog" >
         
           <!-- Modal content-->
           <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
             <div class="modal-body">
               <p><%=alert%></p>
+              <p>Bạn có muốn nạp thẻ</p>
             </div>
             <div class="modal-footer">
               <a href="/huynapthe"><button type="button" class="btn btn-default" >Không</button></a>
@@ -136,11 +134,19 @@
                                     DANH MỤC
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=toan">Toán</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=lich_su">Lịch sử</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=dia_li">Địa lí</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=hoa_hoc">Hóa học</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=van_hoc">Văn học</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=gdcd">Giáo dục công dân</a>
+                                    <a class="dropdown-item"href="/danhmuc?danhMuc=sinh_hoc">Sinh học</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=anh_van">Anh văn</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=tin_hoc">Tin học</a>
                                 </div>
                             </li>
                             <li class="nav-item @@blog">
-                                <a class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">ĐĂNG KÝ</a>
+                                <a class="nav-link" href="/dangky">ĐĂNG KÝ</a>
                             </li>
 
 
@@ -152,11 +158,15 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" size="30" href="/thongtincanhan">Thông tin cá nhân</a>
                                     <a class="dropdown-item" size="30" href="/napthe">Nạp thẻ</a>
-                                    <a class="dropdown-item" href="/quanlykhoahoc">Quản lý khóa học</a>
-                                    <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                
+                                   
                                     <%if (tenTaiKhoan == null) { %>
-                                    <a class="dropdown-item" href="/dangnhap">Đăng nhập</a>
+                                        <a class="dropdown-item" href="/dangnhap">Đăng nhập</a>
                                     <% } %>
+                                    <%if (tenTaiKhoan != null) { %>
+                                        <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                    <% } %>
+                                    <a class="dropdown-item" size="30" href="/dangnhapGV">Trang giáo viên</a>
 
                                 </div>
                             </li>
@@ -203,8 +213,8 @@
                     <div class="featured-article">
                         <% listBaiHoc.forEach(function(baihoc){ %>
                             <%if(baihoc.soThuTu == soThuTu){%>
-                                <video width="550" height="320" controls>
-                                        <source src="video/<%=baihoc.url%>" type="video/mp4">
+                                <video width="650" height="400" controls>
+                                        <source src="<%=baihoc.url%>" type="video/mp4">
                                 </video>
                                 <div class="row">
                                         <h4><%=baihoc.tenBaiHoc%></h4>      
@@ -232,9 +242,6 @@
                     <ul class="media-list main-list">
                         <% listBaiHoc.forEach(function(baihoc){ %>
                             <li class="media">
-                                <video width="200" height="120" controls>
-                                        <source src="video/<%=baihoc.url%>" type="video/mp4">
-                                </video>
                                 <div class="media-body">
                                     <h4 class="media-heading"><%=baihoc.tenBaiHoc%></h4>
                                     <p class="by-author"><%=baihoc.moTaBaiHoc%></p>
@@ -275,6 +282,7 @@
             $(document).ready(function(){
                 $("#myModal").modal('show');
             });
+           
         </script>
     <%}%>
 </body>

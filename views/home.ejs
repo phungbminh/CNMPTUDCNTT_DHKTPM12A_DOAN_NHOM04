@@ -54,12 +54,19 @@
                                     DANH MỤC
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    
-                                    
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=toan">Toán</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=lich_su">Lịch sử</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=dia_li">Địa lí</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=hoa_hoc">Hóa học</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=van_hoc">Văn học</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=gdcd">Giáo dục công dân</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=sinh_hoc">Sinh học</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=anh_van">Anh văn</a>
+                                    <a class="dropdown-item" href="/danhmuc?danhMuc=tin_hoc">Tin học</a>
                                 </div>
                             </li>
                             <li class="nav-item @@blog">
-                                <a class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">ĐĂNG KÝ</a>
+                                <a class="nav-link" href="/dangky" >ĐĂNG KÝ</a>
                             </li>
             
                             
@@ -71,11 +78,14 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" size="30" href="/thongtincanhan">Thông tin cá nhân</a>
                                     <a class="dropdown-item" size="30" href="/napthe">Nạp thẻ</a>
-                                    <a class="dropdown-item" href="/quanlykhoahoc">Quản lý khóa học</a>
-                                    <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                    
                                     <%if (tenTaiKhoan == null) { %>
                                         <a class="dropdown-item" href="/dangnhap">Đăng nhập</a>
                                     <% } %>
+                                    <%if (tenTaiKhoan != null) { %>
+                                        <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                    <% } %>
+                                    <a class="dropdown-item" size="30" href="/dangnhapGV">Trang giáo viên</a>
 
                                 </div>
                             </li>
@@ -176,7 +186,7 @@
                     
                 <div class="col-lg-4 col-sm-6 mb-5">
                     <div class="card p-0 border-primary rounded-0 hover-shadow">
-                        <img class="card-img-top rounded-0" src="images/<%=khoahoc.anhDaiDien%>" alt="course thumb">
+                        <img class="card-img-top rounded-0" src="<%=khoahoc.anhDaiDien%>" alt="course thumb">
                         <div class="card-body">
                             <ul class="list-inline mb-2">
                                 <li class="list-inline-item"><a class="text-color" href="#"><%= khoahoc.danhMuc%></a></li>

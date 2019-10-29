@@ -19,7 +19,7 @@ function onScan(err, data) {
                 , table.tenThanhVien, table.email, table.diaChi, table.sdt, table.maKhoaHoc, table.tenKhoaHoc, table.moTaKhoaHoc
                 , table.giaKhoaHoc, table.maBaiHoc,table.url ,
                 table.tenBaiHoc, table.moTaBaiHoc, table.maThongTinMuaKhoaHoc, 
-                table.ngayMua, table.danhMuc, table.soThuTu);
+                table.ngayMua, table.danhMuc, table.soThuTu, table.trangThaiKhoaHoc, table.trangThaiBaiHoc);
         
            
         });

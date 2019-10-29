@@ -3,16 +3,26 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+//const fileUpload = require('express-fileupload');
 
+var multiparty = require('connect-multiparty'), multipartyMiddleware = multiparty();
 var indexRouter = require('./routes/home');
 var dangNhapRouter = require('./routes/dangnhap');
+var dangNhapGVRouter = require('./routes/dangnhapGV');
 var thongTinKhoaHocRouter = require('./routes/thongtinkhoahoc');
 var napTheRouter = require('./routes/napthe');
+var themKhoaHocRouter = require('./routes/themkhoahoc');
+var thongTinCaNhanRouter = require('./routes/thongtincanhan');
+var khoaHocDanhMucRouter = require('./routes/khoahocdanhmuc');
+var dangKyRouter = require('./routes/dangky');
+var danhSachKhoaHocRouter = require('./routes/danhsachkhoahoc');
+var capNhatKhoaHocRouter = require('./routes/capnhatkhoahoc');
 
 var session = require('express-session');
 var app = express();
 
 // view engine setup
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
@@ -36,14 +46,20 @@ app.use((req, res, next) => {
 });
 app.use('/', indexRouter);
 app.use('/dangnhap', dangNhapRouter);
+app.use('/dangnhapGV', dangNhapGVRouter);
 app.use('/thongtinkhoahoc', thongTinKhoaHocRouter);
 app.use('/napthe', napTheRouter);
-
+app.use('/themkhoahoc', themKhoaHocRouter);
+app.use('/thongtincanhan', thongTinCaNhanRouter);
+app.use('/danhmuc', khoaHocDanhMucRouter);
+app.use('/dangky', dangKyRouter);
+app.use('/danhsachkhoahoc', danhSachKhoaHocRouter);
+app.use('/capnhatkhoahoc', capNhatKhoaHocRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
+//app.use(fileUpload());
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

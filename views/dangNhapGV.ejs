@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <title>Educenter</title>
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/bootstrap/bootstrap.min.css">
+    <!-- slick slider -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/slick/slick.css">
+    <!-- themefy-icon -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/themify-icons/themify-icons.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/animate/animate.css">
+    <!-- aos -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/aos/aos.css">
+    <!-- venobox popup -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/venobox/venobox.css">
+    <!-- Main Stylesheet -->
+    <link href="Bootstrap/bootstrap_home/css/style.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="Bootstrap/bootstrap_home/images/favicon.ico" type="image/x-icon">
+    
+    <link rel="icon" href="Bootstrap/bootstrap_home/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+    <!-- header -->
+    <header class="fixed-top header">
+        <!-- navbar -->
+        <div class="navigation w-100">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
+                    <a class="navbar-brand" href="/"><img src="Bootstrap/bootstrap_home/images/logo.png" alt="logo"></a>
+
+                    <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+                            aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto text-center">
+                            <li class="nav-item @@home">
+                                <a class="nav-link" href="/">TRANG CHỦ</a>
+                            </li>
+                           
+                            
+                            <li class="nav-item @@blog">
+                                <a class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">ĐĂNG KÝ</a>
+                            </li>
+                            
+                    
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- /header -->
+    
+
+                
+       
+    <section class="page-title-section overlay" data-background="Bootstrap/bootstrap_home/images/backgrounds/page-title.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <input class="form-control" type="text" placeholder="Tìm khóa học" aria-label="Search" />
+                    </div>
+                    <br />
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">ĐĂNG KÝ</a></li>
+                        <li class="list-inline-item text-white h3 font-secondary "></li>
+                    </ul>
+                    <p class="text-lighten">Our courses offer a good compromise between the continuous assessment favoured by some universities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+            <div class="container">
+                <!-- course list -->
+                <div class="row justify-content-center">
+                
+                    <div class="col-lg-6 col-sm-6 mb-6">
+                            <div class="modal-body">
+                                    <form action="/loginGV" class="row" method="POST">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control mb-3" id="loginName" name="userName" placeholder="User Name">
+                                        </div>
+                                        <div class="col-12">
+                                            <input type="password" class="form-control mb-3" id="password" name="password" placeholder="Password">
+                                        </div>
+                                        <%if(error != null){%>
+                                            <p style="color: red"><%=error%></p>
+                                        <%}%>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">LOGIN</button>
+                                        </div>
+                                        
+                                    </form>
+                                </div>
+                    </div>
+                   
+            </section>
+    <!-- /courses -->
+    <!-- jQuery -->
+    <script src="Bootstrap/bootstrap_home/plugins/jQuery/jquery.min.js"></script>
+    <!-- bootstrap JS -->
+    <script src="Bootstrap/bootstrap_home/plugins/bootstrap/bootstrap.min.js"></script>
+    <!-- slick slider -->
+    <script src="Bootstrap/bootstrap_home/plugins/slick/slick.min.js"></script>
+    <!-- aos -->
+    <script src="Bootstrap/bootstrap_home/plugins/aos/aos.js"></script>
+    <!-- venobox popup -->
+    <script src="Bootstrap/bootstrap_home/plugins/venobox/venobox.min.js"></script>
+    <!-- mixitup filter -->
+    <script src="Bootstrap/bootstrap_home/plugins/mixitup/mixitup.min.js"></script>
+    <!-- google map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"></script>
+    <script src="plugins/google-map/gmap.js"></script>
+    <!-- Main Script -->
+    <script src="Bootstrap/bootstrap_home/js/script.js"></script>
+</body>
+</html>

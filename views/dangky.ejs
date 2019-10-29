@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <title>Educenter</title>
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/bootstrap/bootstrap.min.css">
+    <!-- slick slider -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/slick/slick.css">
+    <!-- themefy-icon -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/themify-icons/themify-icons.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/animate/animate.css">
+    <!-- aos -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/aos/aos.css">
+    <!-- venobox popup -->
+    <link rel="stylesheet" href="Bootstrap/bootstrap_home/plugins/venobox/venobox.css">
+    <!-- Main Stylesheet -->
+    <link href="Bootstrap/bootstrap_home/css/style.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="Bootstrap/bootstrap_home/images/favicon.ico" type="image/x-icon">
+    
+    <link rel="icon" href="Bootstrap/bootstrap_home/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+    <!-- header -->
+    <header class="fixed-top header">
+        <!-- navbar -->
+        <div class="navigation w-100">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
+                    <a class="navbar-brand" href="/"><img src="Bootstrap/bootstrap_home/images/logo.png" alt="logo"></a>
+
+                    <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+                            aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto text-center">
+                            <li class="nav-item @@home">
+                                <a class="nav-link" href="/">TRANG CHỦ</a>
+                            </li>
+                        
+                            
+                    
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- /header -->
+    
+
+                
+       
+    <section class="page-title-section overlay" data-background="Bootstrap/bootstrap_home/images/backgrounds/page-title.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <input class="form-control" type="text" placeholder="Tìm khóa học" aria-label="Search" />
+                    </div>
+                    <br />
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">ĐĂNG KÝ</a></li>
+                        <li class="list-inline-item text-white h3 font-secondary "></li>
+                    </ul>
+                    <p class="text-lighten">Our courses offer a good compromise between the continuous assessment favoured by some universities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+            <div class="container">
+                <!-- course list -->
+                <div class="row justify-content-center">
+                
+                    <div class="col-lg-6 col-sm-6 mb-6">
+                        <div class="login">
+                            <form action="/signup" class="row" method="POST" id="form_register">
+                                <div class="col-12">
+                                    <select class="form-control" name="loaiTaiKhoan">
+                                        <option value="hoc_vien">Học viên</option>
+                                        <option value="giao_vien">Giáo viên</option>
+                                    </select>
+                                    <br>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control mb-3" id="tenThanhVien" name="tenThanhVien" placeholder="Họ và tên">
+                                    <span id="name_error"></span>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control mb-3" id="diaChi" name="diaChi" placeholder="Địa chỉ">
+                                    <span id="address_error"></span>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control mb-3" id="sdt" name="sdt" placeholder="Số điện thoại">
+                                    <span id="phone_error"></span>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control mb-3" id="email" name="email" placeholder="Email">
+                                    <span id="email_error"></span>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control mb-3" id="tenTaiKhoan" name="tenTaiKhoan" placeholder="Tên tài khoản">
+                                    <span id="username_error"></span>
+                                    <%if(errDangKy != null){%>
+                                        <span><%=errDangKy%></span>
+                                    <%}%>
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" class="form-control mb-3" id="matKhau" name="matKhau" placeholder="Mật khẩu">
+                                    <span id="password_error"></span>
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" class="form-control mb-3" id="nhapLaiMatKau" name="nhapLaiMatKau" placeholder="Nhập lại mật khẩu">
+                                    <span id="re_password_error"></span>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">SIGN UP</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                   
+            </section>
+    <!-- /courses -->
+    <!-- jQuery -->
+    <script src="Bootstrap/bootstrap_home/plugins/jQuery/jquery.min.js"></script>
+    <!-- bootstrap JS -->
+    <script src="Bootstrap/bootstrap_home/plugins/bootstrap/bootstrap.min.js"></script>
+    <!-- slick slider -->
+    <script src="Bootstrap/bootstrap_home/plugins/slick/slick.min.js"></script>
+    <!-- aos -->
+    <script src="Bootstrap/bootstrap_home/plugins/aos/aos.js"></script>
+    <!-- venobox popup -->
+    <script src="Bootstrap/bootstrap_home/plugins/venobox/venobox.min.js"></script>
+    <!-- mixitup filter -->
+    <script src="Bootstrap/bootstrap_home/plugins/mixitup/mixitup.min.js"></script>
+    <!-- google map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"></script>
+    <script src="plugins/google-map/gmap.js"></script>
+    <!-- Main Script -->
+    <script src="Bootstrap/bootstrap_home/js/script.js"></script>
+    <script>
+        function isEmail(emailStr)
+{
+        var emailPat=/^(.+)@(.+)$/
+        var specialChars="\\(\\)<>@,;:\\\\\\\"\\.\\[\\]"
+        var validChars="\[^\\s" + specialChars + "\]"
+        var quotedUser="(\"[^\"]*\")"
+        var ipDomainPat=/^\[(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\]$/
+        var atom=validChars + '+'
+        var word="(" + atom + "|" + quotedUser + ")"
+        var userPat=new RegExp("^" + word + "(\\." + word + ")*$")
+        var domainPat=new RegExp("^" + atom + "(\\." + atom +")*$")
+        var matchArray=emailStr.match(emailPat)
+        if (matchArray==null) {
+                return false
+        }
+        var user=matchArray[1]
+        var domain=matchArray[2]
+ 
+        // See if "user" is valid
+        if (user.match(userPat)==null) {
+            return false
+        }
+        var IPArray=domain.match(ipDomainPat)
+        if (IPArray!=null) {
+            // this is an IP address
+                  for (var i=1;i<=4;i++) {
+                    if (IPArray[i]>255) {
+                        return false
+                    }
+            }
+            return true
+        }
+        var domainArray=domain.match(domainPat)
+        if (domainArray==null) {
+            return false
+        }
+ 
+        var atomPat=new RegExp(atom,"g")
+        var domArr=domain.match(atomPat)
+        var len=domArr.length
+ 
+        if (domArr[domArr.length-1].length<2 ||
+            domArr[domArr.length-1].length>3) {
+           return false
+        }
+ 
+        if (len<2)
+        {
+           return false
+        }
+ 
+        return true;
+}
+$(document).ready(function()
+{
+    $('#form_register').submit(function(){
+ 
+        // BƯỚC 1: Lấy dữ liệu từ form
+        var username    = $.trim($('#tenTaiKhoan').val());
+        var password    = $.trim($('#matKhau').val());
+        var re_password = $.trim($('#nhapLaiMatKau').val());
+        var email       = $.trim($('#email').val());
+        var phone       = $.trim($('#sdt').val());
+        var address     = $.trim($('#diaChi').val());
+ 
+        // BƯỚC 2: Validate dữ liệu
+        // Biến cờ hiệu
+        var flag = true;
+ 
+        // Username
+        if (username == '' || username.length < 4){
+            $('#username_error').text('Tên đăng nhập phải lớn hơn 4 ký tự');
+            flag = false;
+        }
+        else{
+            $('#username_error').text('');
+        }
+        if (address == ''){
+            $('#address_error').text('Nhập địa chỉ');
+            flag = false;
+        }
+        else{
+            $('#address_error').text('');
+        }
+        if (address == ''){
+            $('#name_error').text('Nhập tên');
+            flag = false;
+        }
+        else{
+            $('#name_error').text('');
+        }
+ 
+        // Password
+        if (password.length <= 0){
+            $('#password_error').text('Bạn phải nhập mật khẩu');
+            flag = false;
+        }
+        else{
+            $('#password_error').text('');
+        }
+ 
+        // Re password
+        if (password != re_password){
+            $('#re_password_error').text('Mật khẩu nhập lại không đúng');
+            flag = false;
+        }
+        else{
+            $('#re_password_error').text('');
+        }
+ 
+        // Email
+        if (!isEmail(email)){
+            $('#email_error').text('Email không được để trống và phải đúng định dạng');
+            flag = false;
+        }
+        else{
+            $('#email_error').text('');
+        }
+ 
+        return flag;
+    });
+});
+    </script>
+</body>
+</html>

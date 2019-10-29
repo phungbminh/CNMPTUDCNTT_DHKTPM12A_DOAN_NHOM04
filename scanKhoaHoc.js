@@ -26,7 +26,8 @@ function onScan(err, data) {
             console.log( table.maThanhVien
                 , table.tenThanhVien, table.email, table.diaChi, table.sdt, table.maKhoaHoc, table.tenKhoaHoc, table.moTaKhoaHoc
                 , table.giaKhoaHoc, table.maBaiHoc,table.url ,table.tenBaiHoc, table.moTaBaiHoc, table.maThongTinKiemDuyet, 
-                table.ngayKiemDuyet, table.trangThaiKiemDuyet, table.soThuTu);
+                table.ngayKiemDuyet, table.trangThaiKiemDuyet, table.soThuTu, 
+                table.trangThaiKhoaHoc, table.trangThaiBaiHoc, table.anhDaiDien);
         
            
         });
