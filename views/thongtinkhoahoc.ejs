@@ -185,9 +185,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div>
-                        <input class="form-control" type="text" placeholder="Tìm khóa học" aria-label="Search" />
-                    </div>
+                        <form action="/timkhoahoc" method="GET">
+                            <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <input class="form-control" type="text" placeholder="Tìm khóa học" aria-label="Search" name="tenKhoaHoc"/>
+                                    </div>
+                            </div>
+                        </form>
                     <br />
                     <ul class="list-inline custom-breadcrumb">
                         <li class="list-inline-item"><a class="h2 text-primary font-secondary"
@@ -208,37 +212,47 @@
                 <h3>Khóa học : <%=listBaiHoc[0].tenKhoaHoc%></h3>
             </div>
             <div class="row">
-                <div class="col-md-7 col-lg-7">
+                <div class="col-md-8 col-lg-8">
                     <!-- artigo em destaque -->
-                    <div class="featured-article">
-                        <% listBaiHoc.forEach(function(baihoc){ %>
-                            <%if(baihoc.soThuTu == soThuTu){%>
-                                <video width="650" height="400" controls>
-                                        <source src="<%=baihoc.url%>" type="video/mp4">
-                                </video>
-                                <div class="row">
-                                        <h4><%=baihoc.tenBaiHoc%></h4>      
-                                </div>
-                                <div class="row">        
-                                        <p><%=baihoc.moTaBaiHoc%></p>
-                                </div>
-                            <%}%>
-                        <%});%>
+                    <div class="row">
+                        <div class="featured-article">
+                            <% listBaiHoc.forEach(function(baihoc){ %>
+                                <%if(baihoc.soThuTu == soThuTu){%>
+                                    <video width="650" height="400" controls>
+                                            <source src="<%=baihoc.url%>" type="video/mp4">
+                                    </video>
+                                    <div class="row">
+                                            <h4><%=baihoc.tenBaiHoc%></h4>      
+                                    </div>
+                                    <div class="row">        
+                                            <p><%=baihoc.moTaBaiHoc%></p>
+                                    </div>
+                                <%}%>
+                            <%});%>
+                            
+                        </div>
                     </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <br>
                     <%if(listBaiHoc.length < 2){%>
                         <div class="row">
-                                <div id="gia"class="col-md-6 col-lg-6">     
+                                <div id="gia"class="col-md-4">     
                                 </div>
-                                <div id="mua"class="col-md- col-lg-6">
-                                        <span > Giá : </span> <span style="font-size: 30px; color: red"><%=listBaiHoc[0].giaKhoaHoc%></span>
-                                    <a href="/muakhoahoc?maKhoaHoc=<%=listBaiHoc[0].maKhoaHoc%>"><button type="button" class="btn btn-warning">Mua</button></a>
+                                <div id="mua"class="col-md-8">
+                                    <span style="padding-left: 150px" > Giá : </span> <span style="font-size: 30px; color: red"><%=listBaiHoc[0].giaKhoaHoc%></span>
+                                    <a href="/muakhoahoc?maKhoaHoc=<%=listBaiHoc[0].maKhoaHoc%>"><button  type="button" class="btn btn-warning">Mua</button></a>
                                 </div>  
                         </div>
                     <%}%>
+                  
+                    
                     <!-- /.featured-article -->
                 </div>
-                <div class="col-md-5 col-lg-5">
+                <div class="col-md-4 col-lg-4">
                     <ul class="media-list main-list">
                         <% listBaiHoc.forEach(function(baihoc){ %>
                             <li class="media">

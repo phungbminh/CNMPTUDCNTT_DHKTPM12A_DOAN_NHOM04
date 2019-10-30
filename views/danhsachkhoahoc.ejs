@@ -134,13 +134,13 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username">Jenifer Smith</span>
+                            <span class="username"><%=taiKhoan.tenThanhVien%></span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> Thông tin cá nhân</a>
+                                <a href="/thongtingiaovien"><i class="icon_profile"></i> Thông tin cá nhân</a>
                             </li>
                             <li>
                                 <a href="/logoutGV"><i class="icon_key_alt"></i> Đăng xuất</a>
@@ -184,7 +184,8 @@
                                                 <th scope="col">Giá</th>
                                                 <th scope="col">Mô tả</th>
                                                 <th scope="col">Danh mục</th>
-                                                <th scope="col">Trạng thái</th>
+                                                <th scope="col">Trạng thái ẩn/hiện</th>
+                                                <th scope="col">Trạng thái kiểm duyệt</th>
                                                 <th scope="col"><a href="/themkhoahoc"><button type="button" class="btn btn-warning">Thêm</button></a></th>
                                                 
                                               </tr>
@@ -203,6 +204,12 @@
                                                 <%}%>
                                                 <%if(khoahoc.trangThaiKhoaHoc == 'false'){%>
                                                     <td>Ẩn</td>
+                                                <%}%>
+                                                <%if(khoahoc.trangThaiKiemDuyet == 'true'){%>
+                                                    <td>Đã kiểm duyệt</td>
+                                                <%}%>
+                                                <%if(khoahoc.trangThaiKiemDuyet == 'false'){%>
+                                                    <td>Đang chờ kiểm duyệt</td>
                                                 <%}%>
                                                 <td>
                                                     <a href="/capnhatkhoahoc?maKhoaHoc=<%=khoahoc.maKhoaHoc%>"><button type="button" class="btn btn-success">Cập nhật</button></a>

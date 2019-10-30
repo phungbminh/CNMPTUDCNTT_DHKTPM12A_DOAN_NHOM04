@@ -53,7 +53,7 @@
                         </a>
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-blue"></div>
-                            <li>
+                            <!-- <li>
                                 <p class="blue">You have 4 new notifications</p>
                             </li>
                             <li>
@@ -62,7 +62,7 @@
                                     Friend Request
                                     <span class="small italic pull-right">5 mins</span>
                                 </a>
-                            </li>
+                            </li> -->
 
                         </ul>
                     </li>
@@ -73,13 +73,13 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username">user</span>
+                            <span class="username"><%=taiKhoan.tenThanhVien%></span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> Thông tin cá nhân</a>
+                                <a href="/thongtingiaovien"><i class="icon_profile"></i> Thông tin cá nhân</a>
                             </li>
                             <li>
                                 <a href="/logoutGV"><i class="icon_key_alt"></i> Đăng xuất</a>
@@ -129,15 +129,19 @@
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-2">Tựa khóa học </label>
                                     <div class="col-lg-10">
-                                        <input class="form-control" id="cname" name="tuakhoahoc" minlength="5"
+                                        <input class="form-control" id="tuakhoahoc" name="tuakhoahoc" minlength="5"
                                             type="text"  />
                                             <span id="tuakhoahoc_err"></span>
                                         </div>
                                 </div>
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-2">Ảnh đại diện </label>
-                                    <div class="col-lg-10">
+                                    <div class="col-lg-2">
                                         <input type="file" id="anhdaidien" name="anhdaidien">
+                                    </div>
+                                    <div class="col-lg-8">
+            
+                                        <span ><img id="image_upload_preview"  width="60" height="60"></span>
                                         <span id="anhdaidien_err"></span>
                                     </div>
                                 </div>
@@ -191,7 +195,7 @@
                                         <div class="form-group">
                                             <div class="col-lg-offset-10 col-lg-2">
                                                 <input class="btn btn-primary" type="submit"value="Lưu" />
-
+                                                <a href="/huy"><button type="button" class="btn btn-success">Hủy</button></a>
                                             </div>
                                         </div>
                                     </div>
@@ -292,9 +296,27 @@
                 else {
                     $('#spluong_err').text('');
                 }
-
-                
                 return flag;
+            });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#image_upload_preview').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#anhdaidien").change(function () {
+                var fileExtension = ['jpeg', 'jpg', 'png'];
+                if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                    $('#anhdaidien_err').text('Ảnh đại diện phải là jpeg, jpg, png');
+                }
+            });
+            $("#anhdaidien").change(function () {
+                readURL(this);
             });
         });
     </script>

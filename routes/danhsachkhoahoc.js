@@ -46,7 +46,8 @@ router.get('/', function (req, res, next) {
                             maBaiHoc: item.maBaiHoc,
                             url: item.url,
                             soThuTu: item.soThuTu,
-                            trangThaiKhoaHoc:item.trangThaiKhoaHoc
+                            trangThaiKhoaHoc:item.trangThaiKhoaHoc,
+                            trangThaiKiemDuyet: item.trangThaiKiemDuyet
                         });
                     }
                 }
@@ -56,6 +57,7 @@ router.get('/', function (req, res, next) {
                 if (sess.user && sess.user.loaiTaiKhoan == 'giao_vien') {
                     console.log("co session");
                     console.log(sess.user);
+                    console.log(sess.errVideo);
                     res.render('danhsachkhoahoc', { listKhoaHoc: result, taiKhoan: sess.user});
                 }
                 else {

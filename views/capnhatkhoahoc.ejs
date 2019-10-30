@@ -74,13 +74,13 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username">Jenifer Smith</span>
+                            <span class="username"><%=taiKhoan.tenThanhVien%></span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> Thông tin cá nhân</a>
+                                <a href="/thongtingiaovien"><i class="icon_profile"></i> Thông tin cá nhân</a>
                             </li>
                             <li>
                                 <a href="/logoutGV"><i class="icon_key_alt"></i> Đăng xuất</a>
@@ -146,9 +146,12 @@
                                 </div>
                                 <div class="form-group ">
                                     <label for="cname" class="control-label col-lg-2">Ảnh đại diện</label>
-                                    <div class="col-lg-10">
+                                    <div class="col-lg-2">
                                         <input type="file" id="anhdaidien" name="anhdaidien">
                                         <span id="anhdaidien_err"></span>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <span ><img id="image_upload_preview" src="<%=listBaiHoc[0].anhDaiDien%>" width="60" height="60"></span>
                                     </div>
 
                                 </div>
@@ -188,19 +191,21 @@
 
                                     <div class="input_fields_wrap"
                                         style="border: 1px solid bisque;box-shadow:2px 1px 2px 3px #888888; margin-bottom: 50px;">
-                                        <!-- <button style="margin-bottom: 20px;" type="button" class="add_field_button btn btn-primary">Thêm bài học</button>
-                                    <button style="margin-bottom: 20px;" type="button" class="delete_button btn btn-primary">Xóa</button> -->
+                                        <button style="margin-bottom: 20px;" type="button" class="add_field_button btn btn-primary">Thêm bài học</button>
+                                    <button style="margin-bottom: 20px;" type="button" class="delete_button btn btn-primary">Xóa</button>
                                         <div><input style="display: none;" type="text" name="tenbaihoc"></div>
+                                        <span id="soluong_err"></span>
+                                       
                                         <% for (var i = 1; i <= listBaiHoc.length; i++) { %>
                                         <div id="div<%=i%>" style="margin-bottom:15px;">
                                             <input style="border: 1px solid black;" type="text" required="true"
                                                 name="tenBaiHoc<%=i - 1%>" value="<%=listBaiHoc[i-1].tenBaiHoc%>" />
                                             <input style="border: 1px solid black;" type="text" name="moTa<%=i - 1%>"
                                                 value="<%=listBaiHoc[i-1].moTaBaiHoc%>" required="true" />
-                                            <input type="file" class="form-control" name="url<%=i - 1%>"
-                                                placeholder="Chọn file." required="true">
-                                            <input type="text" name="maBaiHoc<%=i - 1%>"
-                                                value="<%=listBaiHoc[i-1].maBaiHoc%>" hidden="true" />
+                                            <input id="url<%=i - 1%>" type="file" class="form-control" name="url<%=i - 1%>"
+                                                placeholder="Chọn file." required="true" accept="video/mp4,video/x-m4v,video"/>
+                        
+                                            <input  type="text" name="maBaiHoc<%=i - 1%>"value="<%=listBaiHoc[i-1].maBaiHoc%>" hidden="true" />
                                         </div>
                                         <% } %>
                                     </div>
@@ -208,7 +213,7 @@
 
 
                                         <div class="form-group">
-                                            <div class="col-lg-offset-10 col-lg-2">
+                                            <div class="col-lg-offset-9 col-lg-4">
                                                 <input class="btn btn-primary" type="submit" value="Lưu" />
 
                                                 <%if(listBaiHoc[0].trangThaiKhoaHoc == 'true'){%>
@@ -259,23 +264,14 @@
             var delete_button = $(".delete_button");
             var lenght = $('#lenghtArray').val();
             console.log(lenght);
-
-
-            // for(var i = 1; i <= Number(lenght); i++){
-            //     $(wrapper).append('<div id="div'+String(i)+'" style="margin-bottom:15px;"> <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc' + String(i-1) + '" value="<%=listBaiHoc[0].tenBaiHoc%>"/>
-            // <input style="border: 1px solid black;" type="text"
-            //     name="moTa' + (i - 1).toString(10) + '"
-            //     placeholder="Mô tả bài học." /> <input type="file"
-            //         class="form-control" name="url' + (i - 1).toString(10) + '"
-            //         placeholder="Chọn file."></div>'); //add input box
-            // }
             var x = Number(lenght); //initlal text box count
             $(add_button).click(function (e) { //on add input button click
                 e.preventDefault();
+                let maBaiHocRan = Math.floor(Math.random() * 999999999);
                 if (x < max_fields) { //max input box allowed
                     x++; //text box increment
                     //Nếu load gì load trên này .
-                    $(wrapper).append('<div id="div' + String(x) + '" style="margin-bottom:15px;"> <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc' + (x - 1).toString(10) + '" placeholder="Tên bài học."/> <input style="border: 1px solid black;" type="text" name="moTa' + (x - 1).toString(10) + '" placeholder="Mô tả bài học."/>  <input type="file" class="form-control" name="url' + (x - 1).toString(10) + '" placeholder="Chọn file." required="true" ></div>'); //add input box
+                    $(wrapper).append('<div id="div' + String(x) + '" style="margin-bottom:15px;"> <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc' + (x - 1).toString(10) + '" placeholder="Tên bài học."/> <input style="border: 1px solid black;" type="text" name="moTa' + (x - 1).toString(10) + '" placeholder="Mô tả bài học."/>  <input type="file" class="form-control" name="url' + (x - 1).toString(10) + '" placeholder="Chọn file." required="true" ><input type="text" name="maBaiHoc'+(x - 1).toString(10)+'"value="'+String(maBaiHocRan)+'" hidden="true" /></div>'); //add input box
                 }
             });
             
@@ -321,16 +317,39 @@
                 else {
                     $('#mota_err').text('');
                 }
-                if (anhdaidien == '') {
-                    $('#anhdaidien_err').text('Chọn ảnh đại diện');
+               
+                if (x  < 2) {
+                    $('#soluong_err').text('Khóa họ phải có ít nhất 2 bài học');
                     flag = false;
                 }
                 else {
-                    $('#anhdaidien_err').text('');
+                    $('#soluong_err').text('');
                 }
                  return flag;
             });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#image_upload_preview').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#anhdaidien").change(function () {
+                readURL(this);
+            });
+            $("#anhdaidien").change(function () {
+                var fileExtension = ['jpeg', 'jpg', 'png'];
+                if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                    $('#anhdaidien_err').text('Ảnh đại diện phải là jpeg, jpg, png');
+                }
+            });
         });
     </script> 
+
     </body> 
     </html>

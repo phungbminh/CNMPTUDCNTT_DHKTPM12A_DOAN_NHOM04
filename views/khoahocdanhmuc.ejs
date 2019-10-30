@@ -159,9 +159,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div>
-                        <input class="form-control" type="text" placeholder="Tìm khóa học" aria-label="Search" />
-                    </div>
+                        <form action="/timkhoahoc" method="GET">
+                            <div class="col-md-12">
+                                    <div class="col-md-12">
+                                            <input class="form-control" type="text" placeholder="Tìm khóa học" aria-label="Search" name="tenKhoaHoc"/>
+                                    </div>
+                            </div>
+                        </form>
                     <br />
                     <ul class="list-inline custom-breadcrumb">
                         <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Home</a></li>

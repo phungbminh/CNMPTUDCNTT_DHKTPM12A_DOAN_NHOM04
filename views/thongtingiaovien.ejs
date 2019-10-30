@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Basic Table </title>
+
+    <!-- Bootstrap CSS -->
+    <link href="Bootstrap/bootstrap_admin/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="Bootstrap/bootstrap_admin/css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="Bootstrap/bootstrap_admin/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="Bootstrap/bootstrap_admin/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="Bootstrap/bootstrap_admin/css/style.css" rel="stylesheet">
+    <link href="Bootstrap/bootstrap_admin/css/style-responsive.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- container section start -->
+    <section id="container" class="">
+        <!--header start-->
+        <header class="header dark-bg">
+            <div class="toggle-nav">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i
+                        class="icon_menu"></i></div>
+            </div>
+
+            <!--logo start-->
+            <a href="/" class="logo">EDU <span class="lite">CENTER</span></a>
+            <!--logo end-->
+
+
+
+            <div class="top-nav notification-row">
+                <!-- notificatoin dropdown start-->
+                <ul class="nav pull-right top-menu">
+
+                    <!-- alert notification start-->
+                    <li id="alert_notificatoin_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+                            <i class="icon-bell-l"></i>
+                            <span class="badge bg-important">7</span>
+                        </a>
+                        <ul class="dropdown-menu extended notification">
+                            <div class="notify-arrow notify-arrow-blue"></div>
+                            <!-- <li>
+                                <p class="blue">You have 4 new notifications</p>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="label label-primary"><i class="icon_profile"></i></span>
+                                    Friend Request
+                                    <span class="small italic pull-right">5 mins</span>
+                                </a>
+                            </li> -->
+
+                        </ul>
+                    </li>
+                    <!-- alert notification end-->
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                                <img alt="" src="img/avatar1_small.jpg">
+                            </span>
+                            <span class="username"><%=taiKhoan.tenThanhVien%></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <div class="log-arrow-up"></div>
+                            <li class="eborder-top">
+                                <a href="/thongtingiaovien"><i class="icon_profile"></i> Thông tin cá nhân</a>
+                            </li>
+                            <li>
+                                <a href="/logoutGV"><i class="icon_key_alt"></i> Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!-- notificatoin dropdown end-->
+            </div>
+        </header>
+        <!--header end-->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu">
+
+                    <li class="">
+                        <a class="" href="/danhsachkhoahoc">
+                            <i class="icon_house_alt"></i>
+                            <span>Danh sách khóa học</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa fa-th"></i>Thêm khóa học</h3>
+                    </div>
+                </div>
+                <!-- page start-->
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="col-sm-2 col-md-2">
+                            <img src="http://placehold.it/380x500" width="150" height="200" alt="" class="img-rounded img-responsive" />
+                        </div>
+                        <div class="col-sm-10 col-md-10">
+                            <h4>
+                                <%=taiKhoan.tenThanhVien%></h4>
+                            <small><cite title="San Francisco, USA">Địa chỉ: <%=taiKhoan.diaChi%> <i class="glyphicon glyphicon-map-marker">
+                            </i></cite></small>
+                            <p>
+                                <i class="glyphicon glyphicon-envelope"></i>Email: <%=taiKhoan.email%>
+                                <br />
+                                <i class="glyphicon glyphicon-globe"></i>SDT: t<%=taiKhoan.sdt%>
+                                <br />
+                                <i class="glyphicon glyphicon-gift"></i>Số dư tài khoản: <%=taiKhoan.soDuTaiKhoan%></p>
+                            <!-- Split button -->
+                            
+                        </div>
+
+                    </div>
+                </section>
+
+            </section>
+        </section>
+    </section>
+    <!-- container section end -->
+    <!-- javascripts -->
+    <script src="Bootstrap/bootstrap_admin/js/jquery.js"></script>
+    <script src="Bootstrap/bootstrap_admin/js/bootstrap.min.js"></script>
+    <!-- nicescroll -->
+    <script src="Bootstrap/bootstrap_admin/js/jquery.scrollTo.min.js"></script>
+    <script src="Bootstrap/bootstrap_admin/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <!--custome script for all page-->
+    <script src="Bootstrap/bootstrap_admin/js/scripts.js"></script>
+
+    <script src="javascripts/jquery.dynamicTable-1.0.0.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+    <script>
+
+        $(document).ready(function () {
+            var max_fields = 100; //maximum input boxes allowed
+            var wrapper = $(".input_fields_wrap"); //Fields wrapper
+            var add_button = $(".add_field_button"); //Add button ID
+            var delete_button = $(".delete_button");
+            var x = 1; //initlal text box count
+
+            $(add_button).click(function (e) { //on add input button click
+                e.preventDefault();
+                if (x < max_fields) { //max input box allowed
+                    x++; //text box increment
+                    //Nếu load gì load trên này .
+                    $(wrapper).append('<div id="div' + String(x) + '" style="margin-bottom:15px;"> <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc' + (x - 1).toString(10) + '" placeholder="Tên bài học."/> <input style="border: 1px solid black;" type="text" name="moTa' + (x - 1).toString(10) + '" placeholder="Mô tả bài học."/>  <input type="file" class="form-control" name="url' + (x - 1).toString(10) + '" placeholder="Chọn file." required="true" ></div>'); //add input box
+                }
+            });
+            $(delete_button).click(function (event) {
+                event.preventDefault();
+                if (x > 0) {
+                    console.log(x);
+                    $('#div' + String(x)).remove();
+                    x--;
+                }
+            });
+            $('#form_register').submit(function () {
+
+                // BƯỚC 1: Lấy dữ liệu từ form
+                var tuakhoahoc = $.trim($('#tuakhoahoc').val());
+                var giakhoahoc = $.trim($('#giakhoahoc').val());
+                var mota = $.trim($('#mota').val());
+                var anhdaidien = $.trim($('#anhdaidien').val());
+
+                // BƯỚC 2: Validate dữ liệu
+                // Biến cờ hiệu
+                var flag = true;
+
+                // Username
+                if (tuakhoahoc == '' ){
+                    $('#tuakhoahoc_err').text('Tựa khóa học không được rỗng');
+                    flag = false;
+                }
+                else {
+                    $('#tuakhoahoc_err').text('');
+                }
+                if (giakhoahoc == '') {
+                    $('#giakhoahoc_err').text('Nhập giá khóa học');
+                    flag = false;
+                }
+                else {
+                    $('#giakhoahoc_err').text('');
+                }
+                if (mota == '') {
+                    $('#mota_err').text('Nhập mô tả');
+                    flag = false;
+                }
+                else {
+                    $('#mota_err').text('');
+                }
+                if (anhdaidien == '') {
+                    $('#anhdaidien_err').text('Chọn ảnh đại diện');
+                    flag = false;
+                }
+                else {
+                    $('#anhdaidien_err').text('');
+                }
+                if (x  < 2) {
+                    $('#soluong_err').text('Khóa học phải có ít nhất 2 bài học');
+                    flag = false;
+                }
+                else {
+                    $('#spluong_err').text('');
+                }
+
+                
+                return flag;
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

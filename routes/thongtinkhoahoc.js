@@ -67,7 +67,11 @@ router.get('/', function (req, res, next) {
                             console.log(data.Items);
                             if (data.Items != null) {
                                 console.log(sess.errSoDuTaiKhoan);
-                                res.render('thongtinkhoahoc', { tenTaiKhoan: sess.user.tenTaiKhoan, listBaiHoc: [data.Items[0]], soThuTu: req.query.soThuTu ,alert:sess.errSoDuTaiKhoan});
+                                data.Items.forEach(item =>{
+                                    if(item.soThuTu == 1){
+                                        res.render('thongtinkhoahoc', { tenTaiKhoan: sess.user.tenTaiKhoan, listBaiHoc: [item], soThuTu: req.query.soThuTu ,alert:sess.errSoDuTaiKhoan});
+                                    }
+                                })
                             }
                         }
                     });
@@ -100,7 +104,11 @@ router.get('/', function (req, res, next) {
                 console.log(data.Items);
                 if (data.Items != null) {
                     console.log("chua co session");
-                    res.render('thongtinkhoahoc', { tenTaiKhoan: null, listBaiHoc: [data.Items[0]], soThuTu: req.query.soThuTu,alert:null });
+                    data.Items.forEach(item =>{
+                        if(item.soThuTu == 1){
+                            res.render('thongtinkhoahoc', { tenTaiKhoan: null, listBaiHoc: [item], soThuTu: req.query.soThuTu,alert:null });
+                        }
+                    })
                 }
             }
         });

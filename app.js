@@ -17,6 +17,9 @@ var khoaHocDanhMucRouter = require('./routes/khoahocdanhmuc');
 var dangKyRouter = require('./routes/dangky');
 var danhSachKhoaHocRouter = require('./routes/danhsachkhoahoc');
 var capNhatKhoaHocRouter = require('./routes/capnhatkhoahoc');
+var thongTinGiaoVienRouter = require('./routes/thongtingiaovien');
+var timKhaHocRouter = require('./routes/timkhoahoc');
+
 
 var session = require('express-session');
 var app = express();
@@ -55,6 +58,9 @@ app.use('/danhmuc', khoaHocDanhMucRouter);
 app.use('/dangky', dangKyRouter);
 app.use('/danhsachkhoahoc', danhSachKhoaHocRouter);
 app.use('/capnhatkhoahoc', capNhatKhoaHocRouter);
+app.use('/thongtingiaovien', thongTinGiaoVienRouter);
+app.use('/timkhoahoc', timKhaHocRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -14,9 +14,6 @@ aws.config.update({
 
 
 // The name of the bucket that you have created
-
-
-
 // aws.config.update({
 //     region: 'us-east-1',
 //     accessKeyId: 'ASIAXORZEYKSXWNCUBVM',
@@ -68,7 +65,6 @@ router.get('/', function (req, res, next) {
                     });
                 }
             }
-
             let sess = req.session;
             console.log(req.session);
             if (sess.user && sess.user.loaiTaiKhoan == 'hoc_vien') {
@@ -580,8 +576,6 @@ router.post('/themkhoahocform', multipartyMiddleware, function (req, res, next) 
 
             } else {
                 console.log(`User created ${maKhoaHoc}`);
-
-
             }
         });
 
@@ -590,41 +584,70 @@ router.post('/themkhoahocform', multipartyMiddleware, function (req, res, next) 
     }
     res.redirect("danhsachkhoahoc");
 
-
-
-
-
 });
 router.post('/capnhat', multipartyMiddleware, function (req, res, next) {
-
+   
+    
+    
     let maKhoaHoc = req.body.maKhoaHoc;
+    var params = {
+        TableName: "KhoaHoc",
+        ExpressionAttributeNames: {
+            '#makh': 'maKhoaHoc'
+        },
+        ExpressionAttributeValues: {
+            ':maKhoaHoc': Number(maKhoaHoc),
+        },
+        FilterExpression: '#makh = :maKhoaHoc',
+        ReturnConsumedCapacity: 'TOTAL',
+    }
+    docClient.scan(params, function (err, data) {
+        if (err) {
+            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+        } else {
+            if (data.Items != null) {
+                data.Items.forEach(item =>{
+                    var params2 = {
+                        TableName:"KhoaHoc",
+                        Key:{
+                            "maKhoaHoc": Number(maKhoaHoc),
+                            "maBaiHoc": item.maBaiHoc
+                        },
+                        ConditionExpression:"maKhoaHoc = :val",
+                        ExpressionAttributeValues: {
+                            ":val": Number(maKhoaHoc)
+                        }
+                    };
+                    
+                    console.log("Attempting a conditional delete...");
+                    docClient.delete(params2, function(err, data) {
+                        if (err) {
+                            console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
+                        } else {
+                            console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+                        }
+                    });
+                });
+            }
+        }
+    });
     let maThongTinKiemDuyet = Math.floor(Math.random() * 999999999);
-    let ranUpdate = Math.floor(Math.random() * 999999999);
     let sess = req.session;
-    console.log(req.body.tuakhoahoc);
-    console.log(req.files.anhdaidien.type);
-    console.log(req.body.giakhoahoc);
-    console.log(req.body.mota);
-    console.log(req.body.danhMuc);
- 
     let count = 0;
-    thems3.themS3(req.files.anhdaidien, String(ranUpdate)+"khoahoc"+ String(maKhoaHoc), "data/images/");
+    let anhDaiDien = "https://doanbutket.s3.amazonaws.com/data/images/khoahoc" + String(maKhoaHoc);
+    if(req.files.anhdaidien != null){
+        thems3.themS3(req.files.anhdaidien, "khoahoc" + String(maKhoaHoc), "data/images/");
+    }
     while (true) {
         if (req.files["url" + String(count)] == null) {
             break;
         }
-
+        let maBaiHoc = Math.floor(Math.random() * 999999999);
         console.log(req.body["tenBaiHoc" + String(count)]);
         console.log(req.body["moTa" + String(count)]);
         console.log(req.files["url" + String(count)]);
-        console.log(req.body["maBaiHoc" + String(count)])
+        thems3.themS3(req.files["url" + String(count)], "baihoc" + String(maBaiHoc), "data/video/");
         console.log('Start importing');
-        console.log(count);
-        console.log(maThongTinKiemDuyet);
-       
-        let maBaiHoc =  Number(req.body["maBaiHoc" + String(count)]);
-  
-        thems3.themS3(req.files["url" + String(count)],String(ranUpdate)+ "baihoc"+ String(maBaiHoc), "data/video/");
         let params = {
             TableName: "KhoaHoc",
             Item: {
@@ -635,20 +658,21 @@ router.post('/capnhat', multipartyMiddleware, function (req, res, next) {
                 "email": sess.user.email,
                 "maKhoaHoc": Number(maKhoaHoc),
                 "tenKhoaHoc": req.body.tuakhoahoc,
-                "anhDaiDien": "https://doanbutket.s3.amazonaws.com/data/images/" + String(ranUpdate) + "khoahoc" + String(maKhoaHoc),
+                "anhDaiDien": anhDaiDien,
                 "moTaKhoaHoc": req.body.mota,
-                "giaKhoaHoc": req.body.giakhoahoc,
-                "maBaiHoc": maBaiHoc,
-                "url": "https://doanbutket.s3.amazonaws.com/data/video/" + String(ranUpdate) + "baihoc" + String(maBaiHoc),
+                "giaKhoaHoc":Number(req.body.giakhoahoc),
+                "maBaiHoc": Number(maBaiHoc),
+                "url": "https://doanbutket.s3.amazonaws.com/data/video/baihoc" + String(maBaiHoc),
                 "tenBaiHoc": req.body["tenBaiHoc" + String(count)],
                 "moTaBaiHoc": req.body["moTa" + String(count)],
-                "maThongTinKiemDuyet": maThongTinKiemDuyet,
+                "maThongTinKiemDuyet": Number(maThongTinKiemDuyet),
                 "ngayKiemDuyet": "2019-12-24",
                 "trangThaiKiemDuyet": "true",
                 "danhMuc": req.body.danhMuc,
                 "soThuTu": Number(count + 1),
                 "trangThaiKhoaHoc": "true",
                 "trangThaiBaiHoc": "true"
+
             }
         };
         docClient.put(params, (err, data) => {
@@ -656,13 +680,11 @@ router.post('/capnhat', multipartyMiddleware, function (req, res, next) {
                 console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
 
             } else {
-                console.log(`Cap nhat bai hoc thu ${count}--------------------------`);
+                console.log(`User created ${maKhoaHoc}`);
             }
         });
-        
         count = count + 1;
     }
-    
     res.redirect("danhsachkhoahoc");
 
 });
@@ -773,8 +795,6 @@ router.get('/hien', function (req, res, next) {
         }
     });
     res.redirect("danhsachkhoahoc");
-    
-    
 });
 
 module.exports = router;

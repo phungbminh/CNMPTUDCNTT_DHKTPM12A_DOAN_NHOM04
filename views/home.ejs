@@ -130,44 +130,23 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content rounded-0 border-0 p-4">
-                <div class="modal-header border-0">
-                    <h3>Login</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/login" class="row" method="POST">
-                        <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="loginName" name="userName" placeholder="User Name">
-                        </div>
-                        <div class="col-12">
-                            <input type="password" class="form-control mb-3" id="password" name="password" placeholder="Password">
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">LOGIN</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- page title -->
 
     <section class="page-title-section overlay" data-background="Bootstrap/bootstrap_home/images/backgrounds/page-title.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div>
-                        <input class="form-control" type="text" placeholder="Tìm khóa học" aria-label="Search" />
-                    </div>
+                    <form action="/timkhoahoc" method="GET">
+                        <div class="col-md-12">
+                                <div class="col-md-12">
+                                        <input class="form-control" type="text" placeholder="Tìm khóa học" aria-label="Search" name="tenKhoaHoc"/>
+                                </div>
+                        </div>
+                    </form>
                     <br />
                     <ul class="list-inline custom-breadcrumb">
-                        <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="courses.html">Home</a></li>
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="/">Home</a></li>
                         <li class="list-inline-item text-white h3 font-secondary "></li>
                     </ul>
                     <p class="text-lighten">Nếu bạn không muốn học, không ai có thể giúp bạn. Nếu bạn quyết tâm học, không ai có thể ngăn cản bạn dừng lại.</p>

@@ -34,8 +34,8 @@ router.get('/', function (req, res, next) {
             } else {
                 console.log(data.Items);
                 if (data.Items != null) {
-
-                    res.render('capnhatkhoahoc', {listBaiHoc: data.Items});
+                  res.render('capnhatkhoahoc', {listBaiHoc: data.Items, taiKhoan:sess.user});
+                  
                 }
             }
         });

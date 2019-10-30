@@ -14,12 +14,12 @@ router.get('/', function (req, res, next) {
     let sess = req.session;
     if(sess.user){
         console.log(sess);
-        res.render('themkhoahoc');
+        res.render('themkhoahoc', {taiKhoan:sess.user});
     }
     
     else{
         console.log(sess.user);
-        res.redirect("dangNhapGV");
+        res.redirect("dangNhapGV", {taiKhoan:null});
     }
     
 
