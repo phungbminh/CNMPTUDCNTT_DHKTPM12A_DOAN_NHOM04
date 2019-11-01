@@ -4,6 +4,7 @@ const aws = require('aws-sdk');
 const fs = require('fs');
 var multiparty = require('connect-multiparty'), multipartyMiddleware = multiparty();
 var thems3 = require('../themS3');
+var sqs = require('../sqs.js');
 aws.config.update({
     region: 'local',
     endpoint: 'http://localhost:8000',
@@ -101,7 +102,7 @@ router.post('/login', function (req, res, next) {
         } else {
             console.log(data.Items);
             if (data.Items[0] != null) {
-                if (password == data.Items[0].matKhau && data.Items[0].loaiTaiKhoan == 'hoc_vien') {
+                if (password == data.Items[0].matKhau && data.Items[0].loaiTaiKhoan == 'hoc_vien' && data.Items[0].trangThaiHoatDong == 'true') {
                     console.log(data.Items[0].loaiTaiKhoan);
                     var user = {
                         tenTaiKhoan: userName,
@@ -152,6 +153,13 @@ router.get('/logoutGV', function (req, res, next) {
             console.log(err);
     });
     res.redirect('danhsachkhoahoc');
+});
+router.get('/logoutAdmin', function (req, res, next) {
+    req.session.destroy((err) => {
+        if (err)
+            console.log(err);
+    });
+    res.redirect('dangnhapadmin');
 });
 
 
@@ -418,7 +426,7 @@ router.post('/loginGV', function (req, res, next) {
         } else {
             console.log(data.Items);
             if (data.Items[0] != null) {
-                if (String(password) == data.Items[0].matKhau && data.Items[0].loaiTaiKhoan == 'giao_vien') {
+                if (String(password) == data.Items[0].matKhau && data.Items[0].loaiTaiKhoan == 'giao_vien'  && data.Items[0].trangThaiHoatDong == 'true') {
                     console.log(data.Items[0].loaiTaiKhoan);
                     var user = {
                         tenTaiKhoan: userName,
@@ -498,7 +506,8 @@ router.post('/signup', function (req, res, next) {
                         "tenThanhVien": tenThanhVien,
                         "sdt": sdt,
                         "diaChi": diaChi,
-                        "email": email
+                        "email": email,
+                        "trangThaiHoatDong" : "true"
                     }
                 };
                 docClient.put(params, (err, data) => {
@@ -524,71 +533,87 @@ router.post('/themkhoahocform', multipartyMiddleware, function (req, res, next) 
     let maKhoaHoc = Math.floor(Math.random() * 999999999);
     let maThongTinKiemDuyet = Math.floor(Math.random() * 999999999);
     let sess = req.session;
-    if (sess.user) {
-        console.log(sess.user)
-    }
-    console.log(req.body.tuakhoahoc);
-    console.log(req.files.anhdaidien.type);
-    console.log(req.body.giakhoahoc);
-    console.log(req.body.mota);
-    console.log(req.body.danhMuc);
+    let maBaiHoc = Math.floor(Math.random() * 999999999);
+    
     thems3.themS3(req.files.anhdaidien, "khoahoc" + String(maKhoaHoc), "data/images/");
     while (true) {
         if (req.files["url" + String(count)] == null) {
             break;
         }
-        let maBaiHoc = Math.floor(Math.random() * 999999999);
-        console.log(req.body["tenBaiHoc" + String(count)]);
-        console.log(req.body["moTa" + String(count)]);
-        console.log(req.files["url" + String(count)]);
-        thems3.themS3(req.files["url" + String(count)], "baihoc" + String(maBaiHoc), "data/video/");
+        thems3.themS3(req.files["url" + String(count)], "baihoc" + String(maBaiHoc + count), "data/video/");
         console.log('Start importing');
-        let params = {
-            TableName: "KhoaHoc",
-            Item: {
-                "maThanhVien": sess.user.maThanhVien,
-                "tenThanhVien": sess.user.tenThanhVien,
-                "sdt": sess.user.sdt,
-                "diaChi": sess.user.diaChi,
-                "email": sess.user.email,
-                "maKhoaHoc": maKhoaHoc,
-                "tenKhoaHoc": req.body.tuakhoahoc,
-                "anhDaiDien": "https://doanbutket.s3.amazonaws.com/data/images/khoahoc" + String(maKhoaHoc),
-                "moTaKhoaHoc": req.body.mota,
-                "giaKhoaHoc": req.body.giakhoahoc,
-                "maBaiHoc": maBaiHoc,
-                "url": "https://doanbutket.s3.amazonaws.com/data/video/baihoc" + String(maBaiHoc),
-                "tenBaiHoc": req.body["tenBaiHoc" + String(count)],
-                "moTaBaiHoc": req.body["moTa" + String(count)],
-                "maThongTinKiemDuyet": Number(maThongTinKiemDuyet),
-                "ngayKiemDuyet": "2019-12-24",
-                "trangThaiKiemDuyet": "true",
-                "danhMuc": req.body.danhMuc,
-                "soThuTu": count,
-                "trangThaiKhoaHoc": "true",
-                "trangThaiBaiHoc": "true"
+      
+            let params = {
+                TableName: "KhoaHoc",
+                Item: {
+                    "maThanhVien": sess.user.maThanhVien,
+                    "tenThanhVien": sess.user.tenThanhVien,
+                    "sdt": sess.user.sdt,
+                    "diaChi": sess.user.diaChi,
+                    "email": sess.user.email,
+                    "maKhoaHoc": Number(maKhoaHoc),
+                    "tenKhoaHoc": req.body.tuakhoahoc,
+                    "anhDaiDien": "https://doanbutket.s3.amazonaws.com/data/images/khoahoc" + String(maKhoaHoc),
+                    "moTaKhoaHoc": req.body.mota,
+                    "giaKhoaHoc": req.body.giakhoahoc,
+                    "maBaiHoc": Number(maBaiHoc + count),
+                    "url": "https://doanbutket.s3.amazonaws.com/data/video/baihoc" + String(maBaiHoc + count),
+                    "tenBaiHoc": req.body["tenBaiHoc" + String(count)],
+                    "moTaBaiHoc": req.body["moTa" + String(count)],
+                    "maThongTinKiemDuyet": Number(maThongTinKiemDuyet),
+                    "ngayKiemDuyet": "2019-12-24",
+                    "trangThaiKiemDuyet": "false",
+                    "danhMuc": req.body.danhMuc,
+                    "soThuTu": Number(count),
+                    "trangThaiKhoaHoc": "true",
+                    "trangThaiBaiHoc": "false"
+                }
+            };
+            docClient.put(params, (err, data) => {
+                if (err) {
+                    console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
 
-            }
-        };
-        docClient.put(params, (err, data) => {
-            if (err) {
-                console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
-
-            } else {
-                console.log(`User created ${maKhoaHoc}`);
-            }
-        });
-
+                } else {
+                    console.log(`User created ${count} ${maKhoaHoc}`);
+                    
+                }
+            });
+        
         count = count + 1;
 
     }
+    setTimeout(function() {
+        var params5 = {
+            TableName: "KhoaHoc",
+            ExpressionAttributeNames: {
+                '#makh': 'maKhoaHoc',
+            },
+            ExpressionAttributeValues: {
+                ':val': Number(maKhoaHoc),
+            },
+            FilterExpression: '#makh = :val',
+            ReturnConsumedCapacity: 'TOTAL',
+        }
+        docClient.scan(params5, (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                if(data.Items != null){
+                    console.log("data===================================================================================")
+                   console.log(data.Items);
+                    sqs.send(data.Items);
+                    
+                }
+            }
+    
+        });
+    }, 2000);
+    
+    
     res.redirect("danhsachkhoahoc");
 
 });
 router.post('/capnhat', multipartyMiddleware, function (req, res, next) {
-   
-    
-    
     let maKhoaHoc = req.body.maKhoaHoc;
     var params = {
         TableName: "KhoaHoc",
@@ -638,53 +663,99 @@ router.post('/capnhat', multipartyMiddleware, function (req, res, next) {
     if(req.files.anhdaidien != null){
         thems3.themS3(req.files.anhdaidien, "khoahoc" + String(maKhoaHoc), "data/images/");
     }
+    let dem = 0;
     while (true) {
-        if (req.files["url" + String(count)] == null) {
+        if (req.files["url" + String(dem)] == null) {
             break;
         }
-        let maBaiHoc = Math.floor(Math.random() * 999999999);
+        dem++;
+        console.log("dem : " + String(dem));
+    }
+    setTimeout(function() {
+    while (true) {
+        if (count == dem) {
+            break;
+        }
         console.log(req.body["tenBaiHoc" + String(count)]);
         console.log(req.body["moTa" + String(count)]);
         console.log(req.files["url" + String(count)]);
-        thems3.themS3(req.files["url" + String(count)], "baihoc" + String(maBaiHoc), "data/video/");
+        let maBaiHoc = req.body["maBaiHoc" + String(count)];
+        console.log(maBaiHoc);
+        if(req.files["url" + String(count)] != null){
+            thems3.themS3(req.files["url" + String(count)], "baihoc" + String(req.body["maBaiHoc" + String(count)]), "data/video/");
+        }
+        let url = "https://doanbutket.s3.amazonaws.com/data/video/baihoc" + String(req.body["maBaiHoc" + String(count)]);
+            
+ 
         console.log('Start importing');
-        let params = {
-            TableName: "KhoaHoc",
-            Item: {
-                "maThanhVien": sess.user.maThanhVien,
-                "tenThanhVien": sess.user.tenThanhVien,
-                "sdt": sess.user.sdt,
-                "diaChi": sess.user.diaChi,
-                "email": sess.user.email,
-                "maKhoaHoc": Number(maKhoaHoc),
-                "tenKhoaHoc": req.body.tuakhoahoc,
-                "anhDaiDien": anhDaiDien,
-                "moTaKhoaHoc": req.body.mota,
-                "giaKhoaHoc":Number(req.body.giakhoahoc),
-                "maBaiHoc": Number(maBaiHoc),
-                "url": "https://doanbutket.s3.amazonaws.com/data/video/baihoc" + String(maBaiHoc),
-                "tenBaiHoc": req.body["tenBaiHoc" + String(count)],
-                "moTaBaiHoc": req.body["moTa" + String(count)],
-                "maThongTinKiemDuyet": Number(maThongTinKiemDuyet),
-                "ngayKiemDuyet": "2019-12-24",
-                "trangThaiKiemDuyet": "true",
-                "danhMuc": req.body.danhMuc,
-                "soThuTu": Number(count + 1),
-                "trangThaiKhoaHoc": "true",
-                "trangThaiBaiHoc": "true"
+        
+            let params = {
+                TableName: "KhoaHoc",
+                Item: {
+                    "maThanhVien": sess.user.maThanhVien,
+                    "tenThanhVien": sess.user.tenThanhVien,
+                    "sdt": sess.user.sdt,
+                    "diaChi": sess.user.diaChi,
+                    "email": sess.user.email,
+                    "maKhoaHoc": Number(maKhoaHoc),
+                    "tenKhoaHoc": req.body.tuakhoahoc,
+                    "anhDaiDien": anhDaiDien,
+                    "moTaKhoaHoc": req.body.mota,
+                    "giaKhoaHoc":Number(req.body.giakhoahoc),
+                    "maBaiHoc": Number(maBaiHoc),
+                    "url": url,
+                    "tenBaiHoc": req.body["tenBaiHoc" + String(count)],
+                    "moTaBaiHoc": req.body["moTa" + String(count)],
+                    "maThongTinKiemDuyet": Number(maThongTinKiemDuyet),
+                    "ngayKiemDuyet": "2019-12-24",
+                    "trangThaiKiemDuyet": "false",
+                    "danhMuc": req.body.danhMuc,
+                    "soThuTu": Number(count + 1),
+                    "trangThaiKhoaHoc": "true",
+                    "trangThaiBaiHoc": "false"
 
-            }
-        };
-        docClient.put(params, (err, data) => {
-            if (err) {
-                console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
+                }
+            };
+            docClient.put(params, (err, data) => {
+                if (err) {
+                    console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
 
-            } else {
-                console.log(`User created ${maKhoaHoc}`);
-            }
-        });
+                } else {
+                    console.log(`User created ${maKhoaHoc}`);
+                }
+            });
+       
+        console.log(count);
         count = count + 1;
+        
     }
+    }, 500);
+    setTimeout(function() {
+        var params5 = {
+            TableName: "KhoaHoc",
+            ExpressionAttributeNames: {
+                '#makh': 'maKhoaHoc',
+            },
+            ExpressionAttributeValues: {
+                ':val': Number(maKhoaHoc),
+            },
+            FilterExpression: '#makh = :val',
+            ReturnConsumedCapacity: 'TOTAL',
+        }
+        docClient.scan(params5, (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                if(data.Items != null){
+                    console.log("data===================================================================================")
+                   console.log(data.Items);
+                    sqs.send(data.Items);
+                    
+                }
+            }
+    
+        });
+    }, 3000);
     res.redirect("danhsachkhoahoc");
 
 });
@@ -739,6 +810,7 @@ router.get('/an', function (req, res, next) {
             }
         }
     });
+    
     res.redirect("danhsachkhoahoc");
     
     
@@ -796,5 +868,174 @@ router.get('/hien', function (req, res, next) {
     });
     res.redirect("danhsachkhoahoc");
 });
+router.post('/loginAdmin', function (req, res, next) {
+    console.log(req.body.tenTaikhoan);
+    console.log(req.body.password);
+    if(req.body.tenTaikhoan == 'admin' && req.body.password == 'admin'){
+        var user = {
+            tenTaiKhoan: req.body.tenTaikhoan,
+            matKhau: req.body.password,
+            loaiTaiKhoan: "admin"
+        };
+        req.session.user = user;
+        res.redirect('admin');
+    }else{
+        req.session.errAdmin = "err";
+        res.redirect('dangnhapadmin');
+    }
+});
+router.get('/vohieu', function (req, res, next) {
+    var params3 = {
+        TableName: "User",
+        Key: {
+            "maTaiKhoan": Number(req.query.maTaiKhoan)
+        },
+        UpdateExpression: "set trangThaiHoatDong= :r",
+        ExpressionAttributeValues: {
+            ":r": "false"
+        },
+        ReturnValues: "UPDATED_NEW"
+    };
 
+    console.log("Updating");
+    docClient.update(params3, function (err, data) {
+        if (err) {
+            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+            res.redirect("admin");
+        }
+    });
+});
+router.get('/hoatdong', function (req, res, next) {
+    var params3 = {
+        TableName: "User",
+        Key: {
+            "maTaiKhoan": Number(req.query.maTaiKhoan)
+        },
+        UpdateExpression: "set trangThaiHoatDong= :r",
+        ExpressionAttributeValues: {
+            ":r": "true"
+        },
+        ReturnValues: "UPDATED_NEW"
+    };
+
+    console.log("Updating");
+    docClient.update(params3, function (err, data) {
+        if (err) {
+            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+            res.redirect("admin");
+        }
+    });
+});
+router.get('/xetduyet', function (req, res, next) {
+
+    let maKhoaHoc = req.query.maKhoaHoc;
+    var params = {
+        TableName: "KhoaHoc",
+        ExpressionAttributeNames: {
+            '#makh': 'maKhoaHoc'
+        },
+        ExpressionAttributeValues: {
+            ':maKhoaHoc': Number(maKhoaHoc),
+
+        },
+        FilterExpression: '#makh = :maKhoaHoc',
+        ReturnConsumedCapacity: 'TOTAL',
+    }
+    docClient.scan(params, function (err, data) {
+        if(err){
+            console.log(err);
+        }else{
+            if(data.Items != null){
+                data.Items.forEach(item =>{
+                    var params2 = {
+                        TableName:"KhoaHoc",
+                        Key:{
+                            "maKhoaHoc": Number(maKhoaHoc),
+                            "maBaiHoc": Number(item.maBaiHoc)
+                        },
+                        UpdateExpression: "set trangThaiKhoaHoc = :r, trangThaiBaiHoc=:p, trangThaiKiemDuyet=:t",
+                        ExpressionAttributeValues:{
+                            ":r": "true",
+                            ":p":"true",
+                            ":t":"true"
+                        },
+                        ReturnValues:"UPDATED_NEW"
+                    };
+                    
+                    console.log("Updating the item...");
+                    docClient.update(params2, function(err, data) {
+                        if (err) {
+                            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+                        } else {
+                            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+                            
+                           
+                        }
+                    });
+                });
+            }
+        }
+    });
+    sqs.deleteQueue(res, req.session.user);
+       
+    
+   
+    
+});
+router.get('/khongxetduyet', function (req, res, next) {
+
+    let maKhoaHoc = req.query.maKhoaHoc;
+    var params = {
+        TableName: "KhoaHoc",
+        ExpressionAttributeNames: {
+            '#makh': 'maKhoaHoc'
+        },
+        ExpressionAttributeValues: {
+            ':maKhoaHoc': Number(maKhoaHoc),
+
+        },
+        FilterExpression: '#makh = :maKhoaHoc',
+        ReturnConsumedCapacity: 'TOTAL',
+    }
+    docClient.scan(params, function (err, data) {
+        if(err){
+            console.log(err);
+        }else{
+            if(data.Items != null){
+                data.Items.forEach(item =>{
+                    var params2 = {
+                        TableName:"KhoaHoc",
+                        Key:{
+                            "maKhoaHoc": Number(maKhoaHoc),
+                            "maBaiHoc": Number(item.maBaiHoc)
+                        },
+                        UpdateExpression: "set trangThaiKhoaHoc = :r, trangThaiBaiHoc=:p, trangThaiKiemDuyet=:t",
+                        ExpressionAttributeValues:{
+                            ":r": "true",
+                            ":p":"true",
+                            ":t":"false"
+                        },
+                        ReturnValues:"UPDATED_NEW"
+                    };
+                    
+                    console.log("Updating the item...");
+                    docClient.update(params2, function(err, data) {
+                        if (err) {
+                            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+                        } else {
+                            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+                            
+                           
+                        }
+                    });
+                });
+            }
+        }
+    });
+    sqs.deleteQueue(res, req.session.user);
+});
 module.exports = router;

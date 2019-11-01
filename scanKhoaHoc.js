@@ -6,14 +6,7 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient();
 var params = {
     TableName : "KhoaHoc",
-    // ExpressionAttributeNames: {
-    //     '#makh': 'maKhoaHoc'
-    // },
-    // ExpressionAttributeValues: {
-    //     ':maKhoaHoc': 2
-    // },
-    // FilterExpression: '#makh = :maKhoaHoc',
-    // ReturnConsumedCapacity: 'TOTAL',
+
 };
 console.log('Scan ... ');
 docClient.scan(params, onScan);
@@ -23,11 +16,7 @@ function onScan(err, data) {
     } else {
         console.log('Scan succeeded.');
         data.Items.forEach((table) => {
-            console.log( table.maThanhVien
-                , table.tenThanhVien, table.email, table.diaChi, table.sdt, table.maKhoaHoc, table.tenKhoaHoc, table.moTaKhoaHoc
-                , table.giaKhoaHoc, table.maBaiHoc,table.url ,table.tenBaiHoc, table.moTaBaiHoc, table.maThongTinKiemDuyet, 
-                table.ngayKiemDuyet, table.trangThaiKiemDuyet, table.soThuTu, 
-                table.trangThaiKhoaHoc, table.trangThaiBaiHoc, table.anhDaiDien, table.danhMuc);
+            console.log( data.Items);
         
            
         });

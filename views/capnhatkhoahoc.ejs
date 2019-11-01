@@ -203,9 +203,9 @@
                                             <input style="border: 1px solid black;" type="text" name="moTa<%=i - 1%>"
                                                 value="<%=listBaiHoc[i-1].moTaBaiHoc%>" required="true" />
                                             <input id="url<%=i - 1%>" type="file" class="form-control" name="url<%=i - 1%>"
-                                                placeholder="Chọn file." required="true" accept="video/mp4,video/x-m4v,video"/>
-                        
-                                            <input  type="text" name="maBaiHoc<%=i - 1%>"value="<%=listBaiHoc[i-1].maBaiHoc%>" hidden="true" />
+                                                value="ddasđs"  accept="video/mp4,video/x-m4v,video"/>
+                                                <span ><video id="video_upload_preview<%=i - 1%>" src="<%=listBaiHoc[i-1].url%>" width="60" height="60"></video></span>
+                                            <input  type="text" name="maBaiHoc<%=i - 1%>"value="<%=listBaiHoc[i-1].maBaiHoc%>"  />
                                         </div>
                                         <% } %>
                                     </div>
@@ -231,7 +231,7 @@
                                     </div>
                                 </div>
                                 <!-- page end-->
-
+                               
                             </form>
                         </div>
 
@@ -271,10 +271,11 @@
                 if (x < max_fields) { //max input box allowed
                     x++; //text box increment
                     //Nếu load gì load trên này .
-                    $(wrapper).append('<div id="div' + String(x) + '" style="margin-bottom:15px;"> <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc' + (x - 1).toString(10) + '" placeholder="Tên bài học."/> <input style="border: 1px solid black;" type="text" name="moTa' + (x - 1).toString(10) + '" placeholder="Mô tả bài học."/>  <input type="file" class="form-control" name="url' + (x - 1).toString(10) + '" placeholder="Chọn file." required="true" ><input type="text" name="maBaiHoc'+(x - 1).toString(10)+'"value="'+String(maBaiHocRan)+'" hidden="true" /></div>'); //add input box
+                    $(wrapper).append('<div id="div' + String(x) + '" style="margin-bottom:15px;"> <input style="border: 1px solid black;" type="text"  required="true" name="tenBaiHoc' + (x - 1).toString(10) + '" placeholder="Tên bài học."/> <input style="border: 1px solid black;" type="text" name="moTa' + (x - 1).toString(10) + '" placeholder="Mô tả bài học."/>  <input type="file" id="url' + (x - 1).toString(10) + '" class="form-control" name="url' + (x - 1).toString(10) + '" placeholder="Chọn file." required="true" /><span ><video id="video_upload_preview' + (x - 1).toString(10) + '" name="video_upload_preview' + (x - 1).toString(10) + '" src="#" width="60" height="60"></video></span><input type="text" name="maBaiHoc'+(x - 1).toString(10)+'" value="'+String(maBaiHocRan + x)+'" hidden="true" /></div>'); //add input box
+                    consolel.log(x - 1);
                 }
             });
-            
+           
             $(delete_button).click(function (event) {
                 event.preventDefault();
                 if (x > 0) {
@@ -348,6 +349,25 @@
                     $('#anhdaidien_err').text('Ảnh đại diện phải là jpeg, jpg, png');
                 }
             });
+            function readVideo(input, i) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#video_upload_preview'+ String(i)).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            for(let i = 0; i < 100; i ++){
+                $("#url" + String(i)).change(function () {
+                    readVideo(this, i);
+                });
+            }
+           
+            
+            
         });
     </script> 
 

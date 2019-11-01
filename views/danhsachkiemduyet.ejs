@@ -112,20 +112,7 @@
                             <i class="icon-bell-l"></i>
                             <span class="badge bg-important">7</span>
                         </a>
-                        <ul class="dropdown-menu extended notification">
-                            <div class="notify-arrow notify-arrow-blue"></div>
-                            <li>
-                                <p class="blue">You have 4 new notifications</p>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-primary"><i class="icon_profile"></i></span>
-                                    Friend Request
-                                    <span class="small italic pull-right">5 mins</span>
-                                </a>
-                            </li>
-
-                        </ul>
+                       
                     </li>
                     <!-- alert notification end-->
                     <!-- user login dropdown start-->
@@ -134,16 +121,14 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username"><%=taiKhoan.tenThanhVien%></span>
+                            <span class="username"><%=taiKhoan.tenTaiKhoan%></span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
-                            <li class="eborder-top">
-                                <a href="/thongtingiaovien"><i class="icon_profile"></i> Thông tin cá nhân</a>
-                            </li>
+                            
                             <li>
-                                <a href="/logoutGV"><i class="icon_key_alt"></i> Đăng xuất</a>
+                                <a href="/logoutAdmin"><i class="icon_key_alt"></i> Đăng xuất</a>
                             </li>
                         </ul>
                     </li>
@@ -159,9 +144,13 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu">
                         <li class="">
-                                <a class="" href="/danhsachkhoahoc">
+                                <a class="" href="/admin">
                                     <i class="icon_house_alt"></i>
-                                    <span>Danh sách khóa học</span>
+                                    <span>Danh sách tài khoản</span>
+                                </a>
+                                <a class="" href="/danhsachkiemduyet">
+                               
+                                    <span>Danh sách kiểm duyệt</span>
                                 </a>
                             </li>
                    
@@ -183,40 +172,31 @@
                                                 <th scope="col">Tên khóa học</th>
                                                 <th scope="col">Giá</th>
                                                 <th scope="col">Mô tả</th>
-                                                <th scope="col">Danh mục</th>
-                                                <th scope="col">Trạng thái ẩn/hiện</th>
-                                                <th scope="col">Trạng thái kiểm duyệt</th>
-                                                <th scope="col"><a href="/themkhoahoc"><button type="button" class="btn btn-warning">Thêm</button></a></th>
-                                                
-                                              </tr>
+                                                <th scope="col">Danh mục</th>      
+                                                <th scope="col">Tên bài học</th>        
+                                                <th scope="col">Video</th> 
+                                                <%if(list != null){%>
+                                                    <td><a href="/xetduyet?maKhoaHoc=<%=list[0].maKhoaHoc%>"><button type="button" class="btn btn-success">Phê duyệt</button></a></td>   
+                                                    <td><a href="/khongxetduyet?maKhoaHoc=<%=list[0].maKhoaHoc%>"><button type="button" class="btn btn-success">Video khong hợp lệ</button></a></td>                                          
+                                                <%}%>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            <% listKhoaHoc.forEach(function(khoahoc){ %>
-                                              <tr>
-                                                <td><%=khoahoc.maKhoaHoc%></td>
-                                                <td><img src="<%=khoahoc.anhDaiDien%>" width="50" height="50"></td>
-                                                <td><%=khoahoc.tenKhoaHoc%></td>
-                                                <td><%=khoahoc.giaKhoaHoc%></td>
-                                                <td><%=khoahoc.moTaKhoaHoc%></td>
-                                                <td><%=khoahoc.danhMuc%></td>
-                                                <%if(khoahoc.trangThaiKhoaHoc == 'true'){%>
-                                                    <td>Hiện</td>
+                                                <%if(list != null){%>
+                                                    <% list.forEach(function(khoahoc){ %>
+                                                        <tr>
+                                                          <td><%=khoahoc.maKhoaHoc%></td>
+                                                          <td><img src="<%=khoahoc.anhDaiDien%>" width="50" height="50"></td>
+                                                          <td><%=khoahoc.tenKhoaHoc%></td>
+                                                          <td><%=khoahoc.giaKhoaHoc%></td>
+                                                          <td><%=khoahoc.moTaKhoaHoc%></td>
+                                                          <td><%=khoahoc.danhMuc%></td>
+                                                          <td><%=khoahoc.tenBaiHoc%></td>
+                                                          <td><video src="<%=khoahoc.url%>" width="200" height="200"></video></td>
+                                                          
+                                                          
+                                                    <% }); %>
                                                 <%}%>
-                                                <%if(khoahoc.trangThaiKhoaHoc == 'false'){%>
-                                                    <td>Ẩn</td>
-                                                <%}%>
-                                                <%if(khoahoc.trangThaiKiemDuyet == 'true'){%>
-                                                    <td>Đã kiểm duyệt</td>
-                                                <%}%>
-                                                <%if(khoahoc.trangThaiKiemDuyet == 'false'){%>
-                                                    <td>Đang chờ kiểm duyệt</td>
-                                                <%}%>
-                                                <td>
-                                                    <a href="/capnhatkhoahoc?maKhoaHoc=<%=khoahoc.maKhoaHoc%>"><button type="button" class="btn btn-success">Cập nhật</button></a>
-                                                   
-                                                </td>
-                                              </tr>
-                                            <% }); %>
                                             </tbody>
                                           </table>
                             </div>
@@ -262,6 +242,7 @@
             })
         });
     </script>
+    
 
 
 </body>
