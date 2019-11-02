@@ -106,27 +106,7 @@
                 <ul class="nav pull-right top-menu">
 
                     <!-- alert notification start-->
-                    <li id="alert_notificatoin_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-
-                            <i class="icon-bell-l"></i>
-                            <span class="badge bg-important">7</span>
-                        </a>
-                        <ul class="dropdown-menu extended notification">
-                            <div class="notify-arrow notify-arrow-blue"></div>
-                            <li>
-                                <p class="blue">You have 4 new notifications</p>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-primary"><i class="icon_profile"></i></span>
-                                    Friend Request
-                                    <span class="small italic pull-right">5 mins</span>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
+                    
                     <!-- alert notification end-->
                     <!-- user login dropdown start-->
                     <li class="dropdown">
@@ -164,6 +144,16 @@
                                     <span>Danh sách khóa học</span>
                                 </a>
                             </li>
+                            <li class="">
+                                <a class="" href="/danhsachchuakiemduyet">
+                                    <span>Danh sách chưa kiểm duyệt</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                    <a class="" href="/danhsachkhonghople">
+                                        <span>Danh sách không hợp lệ</span>
+                                    </a>
+                                </li>
                    
                 </ul>
                 <!-- sidebar menu end-->
@@ -186,37 +176,41 @@
                                                 <th scope="col">Danh mục</th>
                                                 <th scope="col">Trạng thái ẩn/hiện</th>
                                                 <th scope="col">Trạng thái kiểm duyệt</th>
-                                                <th scope="col"><a href="/themkhoahoc"><button type="button" class="btn btn-warning">Thêm</button></a></th>
+                                                <th><a href="/themkhoahoc"><button type="button" class="btn btn-warning">Thêm</button></a></th>
+                            
                                                 
                                               </tr>
                                             </thead>
                                             <tbody>
-                                            <% listKhoaHoc.forEach(function(khoahoc){ %>
-                                              <tr>
-                                                <td><%=khoahoc.maKhoaHoc%></td>
-                                                <td><img src="<%=khoahoc.anhDaiDien%>" width="50" height="50"></td>
-                                                <td><%=khoahoc.tenKhoaHoc%></td>
-                                                <td><%=khoahoc.giaKhoaHoc%></td>
-                                                <td><%=khoahoc.moTaKhoaHoc%></td>
-                                                <td><%=khoahoc.danhMuc%></td>
-                                                <%if(khoahoc.trangThaiKhoaHoc == 'true'){%>
-                                                    <td>Hiện</td>
-                                                <%}%>
-                                                <%if(khoahoc.trangThaiKhoaHoc == 'false'){%>
-                                                    <td>Ẩn</td>
-                                                <%}%>
-                                                <%if(khoahoc.trangThaiKiemDuyet == 'true'){%>
-                                                    <td>Đã kiểm duyệt</td>
-                                                <%}%>
-                                                <%if(khoahoc.trangThaiKiemDuyet == 'false'){%>
-                                                    <td>Đang chờ kiểm duyệt</td>
-                                                <%}%>
-                                                <td>
-                                                    <a href="/capnhatkhoahoc?maKhoaHoc=<%=khoahoc.maKhoaHoc%>"><button type="button" class="btn btn-success">Cập nhật</button></a>
+                                            <%if(listKhoaHoc != null){%>
+                                                <% listKhoaHoc.forEach(function(khoahoc){ %>
+                                                <tr>
+                                                    <td><%=khoahoc.maKhoaHoc%></td>
+                                                    <td><img src="<%=khoahoc.anhDaiDien%>" width="50" height="50"></td>
+                                                    <td><%=khoahoc.tenKhoaHoc%></td>
+                                                    <td><%=khoahoc.giaKhoaHoc%></td>
+                                                    <td><%=khoahoc.moTaKhoaHoc%></td>
+                                                    <td><%=khoahoc.danhMuc%></td>
+                                                    <%if(khoahoc.trangThaiKhoaHoc == 'true'){%>
+                                                        <td>Hiện</td>
+                                                    <%}%>
+                                                    <%if(khoahoc.trangThaiKhoaHoc == 'false'){%>
+                                                        <td>Ẩn</td>
+                                                    <%}%>
+                                                    <%if(khoahoc.trangThaiKiemDuyet == 'true'){%>
+                                                        <td>Đã kiểm duyệt</td>
+                                                    <%}%>
+                                                    <%if(khoahoc.trangThaiKiemDuyet == 'false'){%>
+                                                        <td>Đang chờ kiểm duyệt</td>
+                                                    <%}%>
                                                    
-                                                </td>
-                                              </tr>
-                                            <% }); %>
+                                                    <td>
+                                                        <a href="/capnhatkhoahoc?maKhoaHoc=<%=khoahoc.maKhoaHoc%>"><button type="button" class="btn btn-success">Cập nhật</button></a>
+                                                    
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                            <%}%>
                                             </tbody>
                                           </table>
                             </div>

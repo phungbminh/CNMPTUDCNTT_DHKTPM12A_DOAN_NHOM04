@@ -44,14 +44,48 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navigation">
                         <ul class="navbar-nav ml-auto text-center">
-                            <li class="nav-item @@home">
-                                <a class="nav-link" href="/">TRANG CHỦ</a>
-                            </li>
-                           
-                            
-                            <li class="nav-item @@blog">
-                                <a class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">ĐĂNG KÝ</a>
-                            </li>
+                                <li class="nav-item @@home">
+                                        <a class="nav-link" href="/">TRANG CHỦ</a>
+                                    </li>
+                                   
+                                    <li class="nav-item dropdown view">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            DANH MỤC
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="/danhmuc?danhMuc=toan">Toán</a>
+                                            <a class="dropdown-item" href="/danhmuc?danhMuc=lich_su">Lịch sử</a>
+                                            <a class="dropdown-item" href="/danhmuc?danhMuc=dia_li">Địa lí</a>
+                                            <a class="dropdown-item" href="/danhmuc?danhMuc=hoa_hoc">Hóa học</a>
+                                            <a class="dropdown-item" href="/danhmuc?danhMuc=van_hoc">Văn học</a>
+                                            <a class="dropdown-item" href="/danhmuc?danhMuc=gdcd">Giáo dục công dân</a>
+                                            <a class="dropdown-item" href="/danhmuc?danhMuc=sinh_hoc">Sinh học</a>
+                                            <a class="dropdown-item" href="/danhmuc?danhMuc=anh_van">Anh văn</a>
+                                            <a class="dropdown-item" href="/danhmuc?danhMuc=tin_hoc">Tin học</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item @@blog">
+                                        <a class="nav-link" href="/dangky" >ĐĂNG KÝ</a>
+                                    </li>
+                    
+                                    
+                                    <li class="nav-item dropdown view" style="margin-right:100px">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                           User: <%=tenTaiKhoan%>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" size="30" href="/thongtincanhan">Thông tin cá nhân</a>
+                                            <a class="dropdown-item" size="30" href="/napthe">Nạp thẻ</a>
+                                            <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                            <%if (tenTaiKhoan == null) { %>
+                                                <a class="dropdown-item" href="/dangnhap">Đăng nhập</a>
+                                            <% } %>
+                                            <a class="dropdown-item" size="30" href="/dangnhapGV">Trang giáo viên</a>
+        
+                                        </div>
+                                    </li>
                             
                     
                         </ul>

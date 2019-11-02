@@ -106,7 +106,8 @@
                 <ul class="nav pull-right top-menu">
 
                     <!-- alert notification start-->
-                    
+                   
+                    </li>
                     <!-- alert notification end-->
                     <!-- user login dropdown start-->
                     <li class="dropdown">
@@ -114,14 +115,16 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username"><%=taiKhoan.tenTaiKhoan%></span>
+                            <span class="username"><%=taiKhoan.tenThanhVien%></span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
-                            
+                            <li class="eborder-top">
+                                <a href="/thongtingiaovien"><i class="icon_profile"></i> Thông tin cá nhân</a>
+                            </li>
                             <li>
-                                <a href="/logoutAdmin"><i class="icon_key_alt"></i> Đăng xuất</a>
+                                <a href="/logoutGV"><i class="icon_key_alt"></i> Đăng xuất</a>
                             </li>
                         </ul>
                     </li>
@@ -137,15 +140,21 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu">
                         <li class="">
-                                <a class="" href="/admin">
+                                <a class="" href="/danhsachkhoahoc">
                                     <i class="icon_house_alt"></i>
-                                    <span>Danh sách tài khoản</span>
-                                </a>
-                                <a class="" href="/danhsachkiemduyet">
-                     
-                                    <span>Danh sách kiểm duyệt</span>
+                                    <span>Danh sách khóa học</span>
                                 </a>
                             </li>
+                            <li class="">
+                                    <a class="" href="/danhsachchuakiemduyet">
+                                        <span>Danh sách chưa kiểm duyệt</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                        <a class="" href="/danhsachkhonghople">
+                                            <span>Danh sách không hợp lệ</span>
+                                        </a>
+                                    </li>
                    
                 </ul>
                 <!-- sidebar menu end-->
@@ -160,37 +169,39 @@
                                     <table class="table table-striped">
                                             <thead>
                                               <tr>
-                                                <th scope="col">Mã tài khoản</th>
-                                                <th scope="col">Tên tài khoản</th>
-                                                <th scope="col">Mật khẩu</th>
-                                                <th scope="col">Tên thành viên</th>
-                                                <th scope="col">Trang thái hoạt động</th>                                              
+                                                <th scope="col">Mã khóa học</th>
+                                                <th scope="col">Hình ảnh</th>
+                                                <th scope="col">Tên khóa học</th>
+                                                <th scope="col">Giá</th>
+                                                <th scope="col">Mô tả</th>
+                                                <th scope="col">Danh mục</th>
+                                              
+                                                <th scope="col">Trạng thái kiểm duyệt</th>
+                                               
+                                                
                                               </tr>
                                             </thead>
                                             <tbody>
-                                            <% list.forEach(function(taikhoan){ %>
-                                              <tr>
-                                                <td><%=taikhoan.maTaiKhoan%></td>
+                                            <%if(listKhoaHoc != null){%>
+                                                <% listKhoaHoc.forEach(function(khoahoc){ %>
+                                                <tr>
+                                                    <td><%=khoahoc.maKhoaHoc%></td>
+                                                    <td><img src="<%=khoahoc.anhDaiDien%>" width="50" height="50"></td>
+                                                    <td><%=khoahoc.tenKhoaHoc%></td>
+                                                    <td><%=khoahoc.giaKhoaHoc%></td>
+                                                    <td><%=khoahoc.moTaKhoaHoc%></td>
+                                                    <td><%=khoahoc.danhMuc%></td>
+                                                   
+                                                    <%if(khoahoc.trangThaiKiemDuyet == 'true'){%>
+                                                        <td>Đã kiểm duyệt</td>
+                                                    <%}%>
+                                                    <%if(khoahoc.trangThaiKiemDuyet == 'false'){%>
+                                                        <td>Đang chờ kiểm duyệt</td>
+                                                    <%}%>
                                                 
-                                                <td><%=taikhoan.tenTaiKhoan%></td>
-                                                <td><%=taikhoan.matKhau%></td>
-                                                <td><%=taikhoan.tenThanhVien%></td>
-                                    
-                                                <%if(taikhoan.trangThaiHoatDong == 'true'){%>
-                                                    <td>Hoạt động</td>
-                                                    <td>
-                                                        <a href="/vohieu?maTaiKhoan=<%=taikhoan.maTaiKhoan%>"><button type="button" class="btn btn-success">Vô hiệu</button></a>
-                                                    </td>
-                                                <%}%>
-                                                <%if(taikhoan.trangThaiHoatDong == 'false'){%>
-                                                    <td>Vô hiệu hóa</td>
-                                                    <td>
-                                                        <a href="/hoatdong?maTaiKhoan=<%=taikhoan.maTaiKhoan%>"><button type="button" class="btn btn-success">Hoạt động</button></a>
-                                                    </td>
-                                                <%}%>
-                                                
-                                              </tr>
-                                            <% }); %>
+                                                </tr>
+                                                <% }); %>
+                                            <%}%>
                                             </tbody>
                                           </table>
                             </div>

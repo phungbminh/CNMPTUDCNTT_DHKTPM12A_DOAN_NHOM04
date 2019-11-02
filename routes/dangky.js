@@ -14,9 +14,9 @@ router.get('/', function (req, res, next) {
     let sess = req.session;
     
     if(sess.errDangKy){
-        res.render('dangky', {errDangKy:sess.errDangKy});
+        res.render('dangky', {errDangKy:sess.errDangKy, tenTaiKhoan: sess.user.tenTaiKhoan});
     }else{
-        res.render('dangky', {errDangKy:null});
+        res.render('dangky', {errDangKy:null,tenTaiKhoan: null});
     }
     
 });

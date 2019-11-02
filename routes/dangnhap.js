@@ -7,10 +7,10 @@ const aws = require('aws-sdk');
 router.get('/', function (req, res, next) {
     let sess = req.session;
     if(sess.err){
-        res.render('dangnhap', {error:sess.err});
+        res.render('dangnhap', {error:sess.err, tenTaiKhoan: null});
     }
     else{
-        res.render('dangnhap',{error:null});
+        res.render('dangnhap',{error:null, tenTaiKhoan: null});
     }
     
 });

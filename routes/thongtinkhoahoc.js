@@ -13,6 +13,7 @@ router.get('/', function (req, res, next) {
     let sess = req.session;
     var maKhoaHoc = req.query.maKhoaHoc;
     console.log(maKhoaHoc);
+    //da dang nhap , kiem tra bai hoc trong thong tin mua
     if (sess.user && sess.user.loaiTaiKhoan == 'hoc_vien') {
         console.log("co session");
         var params = {
@@ -40,8 +41,10 @@ router.get('/', function (req, res, next) {
                 console.log(Number(maKhoaHoc));
                 console.log(sess.user.maThanhVien);
                 console.log(data.Items);
+                //neu co bai trong thong tin mua thi in ma hinh
                 if (data.Items.length != 0) {
                     res.render('thongtinkhoahoc', { tenTaiKhoan: sess.user.tenTaiKhoan, listBaiHoc: data.Items, soThuTu: req.query.soThuTu , alert:null});
+                //nguoc laij neu chua mua thi vao bang khoa oc tim kiem va in ra 1 bai
                 } else {
                     var params = {
                         TableName: "KhoaHoc",
@@ -78,7 +81,7 @@ router.get('/', function (req, res, next) {
                 }
             }
         });
-
+    //nguoc lai neu chua dang dang nha thi tim trong bng khoa hoc in ra 1 bai
     } else {
         var params = {
             TableName: "KhoaHoc",

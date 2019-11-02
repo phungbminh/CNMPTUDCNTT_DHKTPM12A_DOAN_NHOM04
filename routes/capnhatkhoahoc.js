@@ -17,15 +17,13 @@ router.get('/', function (req, res, next) {
         var params = {
             TableName: "KhoaHoc",
             ExpressionAttributeNames: {
-                '#makh': 'maKhoaHoc',
-                '#ttkd': 'trangThaiKiemDuyet',
+                '#makh': 'maKhoaHoc'
 
             },
             ExpressionAttributeValues: {
-                ':maKhoaHoc': Number(maKhoaHoc),
-                ':thongTinKD': 'true',
+                ':maKhoaHoc': Number(maKhoaHoc)
             },
-            FilterExpression: '#makh = :maKhoaHoc and #ttkd = :thongTinKD',
+            FilterExpression: '#makh = :maKhoaHoc',
             ReturnConsumedCapacity: 'TOTAL',
         }
         docClient.scan(params, function (err, data) {
