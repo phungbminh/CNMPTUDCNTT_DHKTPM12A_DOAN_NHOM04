@@ -19,7 +19,6 @@ var params = {
         { AttributeName: "maBaiHoc", KeyType: "RANGE" },  //Sort key
     ],
     AttributeDefinitions: [
-        { AttributeName: "maThanhVien", AttributeType: "N" },
         { AttributeName: "maBaiHoc", AttributeType: "N" },
         { AttributeName: "maKhoaHoc", AttributeType: "N" },
         { AttributeName: "maThongTinKiemDuyet", AttributeType: "N" },

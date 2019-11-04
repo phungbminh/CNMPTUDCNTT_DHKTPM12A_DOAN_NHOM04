@@ -3,17 +3,17 @@ const aws = require('aws-sdk');
 const fs = require('fs');
 aws.config.update({
     region: 'us-east-1',
-    accessKeyId: 'ASIAXORZEYKSWAT6OEYY',
-    secretAccessKey: 'fXVqNaD35z4dV7Vul9MlaALnfgI1pt9ps/zhGpx7',
-    sessionToken: 'FwoGZXIvYXdzEBMaDC5rLGRiWppA4Fj7TCLDAUo3m8aJgO2IELSQsCv6QH312AXOD/wDEBu4KOe8bq62tIxomTQhYGLY1H9uFXzfUItMYYADOZK6vVp8ZVaMQfc03lCxDmJ3FDJbWQc7kr7GOodILHCUbRZyH1tlQy+NoHZc6dFG6bYyhVjPYlWemNkw1Wtxuft6rwslb4cqQ9yJa1+mP8QF4kLlSc+xiZ5YlEQwjNREba/wR/Sd/o/42OBKmowcnIWNT1d3p7qrJuZtuJeEGCHOb7edeAvHKoA42iL6pCiQ7/btBTItzBcKDA4WxovgJ5V8/7gVsOZ2OhdsnKhM3h+vIST02h58FCWyvV/ikd7PQ5Cr',
+    accessKeyId: 'ASIAXORZEYKSZJ4JIYB3',
+    secretAccessKey: '/OT0kR5FwWzn9QQNLEF+ij+Av922zdfCQJ6T959C',
+    sessionToken: 'FwoGZXIvYXdzEEIaDFVU1JEr0M6xcgbouSLDAdiQ8XwIxF0Wl2dJ0JQneDRQFRk68gLc9CXzgkWazgjfidb11etudfjjZcnHXvLiSFaLlDIGxWx1y8BWrgat43XlP/QBxPet4prkBjiPkMuiQSej4aJBY3gx/IBpJrhskgYtqAdQY+VSZbsYjb50A1gI8L45TM4/uuPmelEAjYm9Xe7H/0RPOHXhXd+H9zTw+zNUZQlRIddbYEx94f74U3heZLKLL1/C6y+YCHaAp86nCwrApL8D8OSmeDkZhCj3r5yg5yjkrYHuBTIt7bdbnw9PyxkGp37aBbV7w+SGvdHDB2fsfyaXwif36McwXds9xPYrXxchIk66',
     endpoint: "http://dynamodb.us-east-1.amazonaws.com/"
 
 });
 var s3 = new aws.S3({
     region: 'us-east-1',
-    accessKeyId: 'ASIAXORZEYKSWAT6OEYY',
-    secretAccessKey: 'fXVqNaD35z4dV7Vul9MlaALnfgI1pt9ps/zhGpx7',
-    sessionToken: 'FwoGZXIvYXdzEBMaDC5rLGRiWppA4Fj7TCLDAUo3m8aJgO2IELSQsCv6QH312AXOD/wDEBu4KOe8bq62tIxomTQhYGLY1H9uFXzfUItMYYADOZK6vVp8ZVaMQfc03lCxDmJ3FDJbWQc7kr7GOodILHCUbRZyH1tlQy+NoHZc6dFG6bYyhVjPYlWemNkw1Wtxuft6rwslb4cqQ9yJa1+mP8QF4kLlSc+xiZ5YlEQwjNREba/wR/Sd/o/42OBKmowcnIWNT1d3p7qrJuZtuJeEGCHOb7edeAvHKoA42iL6pCiQ7/btBTItzBcKDA4WxovgJ5V8/7gVsOZ2OhdsnKhM3h+vIST02h58FCWyvV/ikd7PQ5Cr',
+    accessKeyId: 'ASIAXORZEYKSZJ4JIYB3',
+    secretAccessKey: '/OT0kR5FwWzn9QQNLEF+ij+Av922zdfCQJ6T959C',
+    sessionToken: 'FwoGZXIvYXdzEEIaDFVU1JEr0M6xcgbouSLDAdiQ8XwIxF0Wl2dJ0JQneDRQFRk68gLc9CXzgkWazgjfidb11etudfjjZcnHXvLiSFaLlDIGxWx1y8BWrgat43XlP/QBxPet4prkBjiPkMuiQSej4aJBY3gx/IBpJrhskgYtqAdQY+VSZbsYjb50A1gI8L45TM4/uuPmelEAjYm9Xe7H/0RPOHXhXd+H9zTw+zNUZQlRIddbYEx94f74U3heZLKLL1/C6y+YCHaAp86nCwrApL8D8OSmeDkZhCj3r5yg5yjkrYHuBTIt7bdbnw9PyxkGp37aBbV7w+SGvdHDB2fsfyaXwif36McwXds9xPYrXxchIk66',
     endpoint: "http://s3.us-east-1.amazonaws.com/"
 });
 

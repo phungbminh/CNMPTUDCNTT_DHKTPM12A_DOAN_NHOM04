@@ -16,7 +16,7 @@ function onScan(err, data) {
     } else {
         console.log('Scan succeeded.');
         data.Items.forEach((table) => {
-            console.log( data.Items);
+            console.log( table);
         
            
         });

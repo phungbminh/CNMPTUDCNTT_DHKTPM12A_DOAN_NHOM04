@@ -47,7 +47,8 @@ router.get('/', function (req, res, next) {
                             url: item.url,
                             soThuTu: item.soThuTu,
                             trangThaiKhoaHoc:item.trangThaiKhoaHoc,
-                            trangThaiKiemDuyet: item.trangThaiKiemDuyet
+                            trangThaiKiemDuyet: item.trangThaiKiemDuyet,
+                            noiDung: item.noiDung
                         });
                     }
                 }
@@ -58,7 +59,9 @@ router.get('/', function (req, res, next) {
                     console.log("co session");
                     console.log(sess.user);
                     console.log(sess.errVideo);
+                    console.log(result);
                     res.render('danhsachkhonghople', { listKhoaHoc: result, taiKhoan: sess.user});
+
                 }
                 else {
                     console.log("chua co sessioc");

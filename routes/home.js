@@ -556,12 +556,13 @@ router.post('/themkhoahocform', multipartyMiddleware, function (req, res, next) 
                     "danhMuc": req.body.danhMuc,
                     "soThuTu": Number(count),
                     "trangThaiKhoaHoc": "true",
-                    "trangThaiBaiHoc": "false"
+                    "trangThaiBaiHoc": "false",
+                    "noiDung":"null"
                 }
             };
             docClient.put(params, (err, data) => {
                 if (err) {
-                    console.error(`Unable to add user ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
+                    console.error(`Unable to add user ne ${maKhoaHoc}, ${JSON.stringify(err, null, 2)}`);
 
                 } else {
                     console.log(`User created ${count} ${maKhoaHoc}`);
@@ -702,7 +703,8 @@ router.post('/capnhat', multipartyMiddleware, function (req, res, next) {
                     "danhMuc": req.body.danhMuc,
                     "soThuTu": Number(count + 1),
                     "trangThaiKhoaHoc": "true",
-                    "trangThaiBaiHoc": "false"
+                    "trangThaiBaiHoc": "false",
+                    "noiDung":"null"
 
                 }
             };
@@ -981,6 +983,7 @@ router.get('/xetduyet', function (req, res, next) {
 router.get('/khongxetduyet', function (req, res, next) {
 
     let maKhoaHoc = req.query.maKhoaHoc;
+    let noiDung = req.query.noiDung;
     var params = {
         TableName: "KhoaHoc",
         ExpressionAttributeNames: {
@@ -1005,11 +1008,12 @@ router.get('/khongxetduyet', function (req, res, next) {
                             "maKhoaHoc": Number(maKhoaHoc),
                             "maBaiHoc": Number(item.maBaiHoc)
                         },
-                        UpdateExpression: "set trangThaiKhoaHoc = :r, trangThaiBaiHoc=:p, trangThaiKiemDuyet=:t",
+                        UpdateExpression: "set trangThaiKhoaHoc = :r, trangThaiBaiHoc=:p, trangThaiKiemDuyet=:t, noiDung =:n",
                         ExpressionAttributeValues:{
                             ":r": "true",
                             ":p":"true",
-                            ":t":"khong_hop_le"
+                            ":t":"khong_hop_le",
+                            ":n": String(noiDung)
                         },
                         ReturnValues:"UPDATED_NEW"
                     };
